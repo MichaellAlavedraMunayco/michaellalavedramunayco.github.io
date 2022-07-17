@@ -1,0 +1,77 @@
+@import url("assets/fonts/Inter/inter.font-face.css");
+@import url("assets/styles/reset.less");
+@import url("assets/styles/normalize.less");
+
+:root {
+  --dark: #131622;
+  --primary-dark: #12494a;
+  --primary-normal: #1edaa1;
+  --primary-light: #07c8cc;
+  --secondary-dark: #1e3566;
+  --secondary-normal: #075fe4;
+  --secondary-light: #255cd1;
+  --white-100: rgba(255, 255, 255, 1);
+  --white-70: rgba(255, 255, 255, 0.7);
+  --white-50: rgba(255, 255, 255, 0.5);
+  --white-40: rgba(255, 255, 255, 0.4);
+  --white-30: rgba(255, 255, 255, 0.3);
+  --white-10: rgba(255, 255, 255, 0.1);
+  --black-100: rgba(0, 0, 0, 1);
+  --black-50: rgba(0, 0, 0, 0.5);
+}
+
+*,
+html,
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+}
+
+body {
+  background-color: var(--dark);
+  background-position: center;
+  background-origin: border-box;
+  background-attachment: fixed;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: 595px) {
+  body {
+    background-image: url("assets/images/pattern.mobile.svg"),
+      linear-gradient(
+        52.06deg,
+        var(--secondary-dark) 9.35%,
+        var(--dark) 28.55%,
+        var(--dark) 70.25%,
+        var(--primary-dark) 87.84%
+      );
+  }
+}
+
+/* Small screen devices (600px and above) */
+@media only screen and (min-width: 600px) {
+  body {
+    background-image: url("assets/images/pattern.desktop.svg"),
+      linear-gradient(
+        67.32deg,
+        var(--secondary-dark) 0%,
+        var(--dark) 24.47%,
+        var(--dark) 77.6%,
+        var(--primary-dark) 100%
+      );
+  }
+}
+
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Big screen devices (889px and above) */
+@media only screen and (min-width: 889px) {
+}
+
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+}
