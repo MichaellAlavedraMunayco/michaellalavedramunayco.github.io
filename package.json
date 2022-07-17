@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:pwa": "http-server -p 8080 -c-1 docs/",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
+    "@angular/service-worker": "~9.0.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

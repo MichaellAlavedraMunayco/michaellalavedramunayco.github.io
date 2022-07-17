@@ -1,15 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "defaultProject": "portfolio",
   "newProjectRoot": "projects",
   "projects": {
     "portfolio": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "less"
-        }
-      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,7 +21,8 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.less"
@@ -59,7 +56,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -89,7 +88,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.less"
@@ -125,8 +125,7 @@
       }
     }
   },
-  "defaultProject": "portfolio",
   "cli": {
-    "analytics": "c7390958-0f31-4aa4-9cbd-caf6b0b11118"
+    "analytics": false
   }
 }
