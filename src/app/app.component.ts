@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: `<router-outlet></router-outlet>`,
+  templateUrl: `./app.component.html`,
+  styleUrls: ['./app.component.html'],
 })
-export class AppComponent { }
+export class AppComponent {
+
+  constructor(activateRoute: ActivatedRoute) {
+    activateRoute.params.subscribe(console.log);
+  }
+
+}

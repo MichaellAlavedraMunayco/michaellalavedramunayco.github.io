@@ -24,7 +24,10 @@
 html,
 body {
   font-family: "Inter", sans-serif;
-  font-size: 12px;
+  font-size: 16px;
+  @media only screen and (max-width: 595px) {
+    font-size: 12px;
+  }
 }
 
 body {
@@ -32,7 +35,7 @@ body {
   background-position: center;
   background-origin: border-box;
   background-attachment: fixed;
-  background-size: auto;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
