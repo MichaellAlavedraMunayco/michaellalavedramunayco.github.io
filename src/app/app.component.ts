@@ -13,13 +13,16 @@ type PageComponent = OverviewPageComponent | ProjectsPageComponent | Certificati
 
 class Page {
 
-  public scrollRef: number;
+  scrollRef: number;
+  path: Path;
+  title: string;
+  component: PageComponent;
   private nextPage: Page;
 
-  constructor(
-    public path: Path,
-    public component: PageComponent
-  ) {
+  constructor({ path, title, component }: Partial<Page>) {
+    this.path = path;
+    this.title = title;
+    this.component = component;
     this.scrollRef = this.getScrollRef();
   }
 
@@ -34,6 +37,14 @@ class Page {
 
   getNextPage(): Page {
     return this.nextPage;
+  }
+
+  scrollIntoView() {
+    this.component.scrollIntoView();
+  }
+
+  updateDeviceTitle() {
+    document.title = this.title;
   }
 }
 
@@ -53,11 +64,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   page: Page;
 
   routerSubscription: Subscription;
-  scrollSubscription: Subscription;
+  // scrollSubscription: Subscription;
 
 
   constructor(
-    private elementRef: ElementRef<HTMLElement>,
+    // private elementRef: ElementRef<HTMLElement>,
     private router: Router,
   ) {
 
@@ -69,27 +80,41 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       .subscribe(param => {
         this.path = ['projects', 'certifications'].includes(param) ? param as Path : 'overview';
         this.page = this.pageMap.get(this.path);
-        this.page.component.scrollIntoView();
+        this.page.scrollIntoView();
+        this.page.updateDeviceTitle();
       });
 
-    this.scrollSubscription = fromEvent(this.elementRef.nativeElement, 'scroll')
-      .pipe(
-        debounceTime(100),
-        distinctUntilChanged(),
-        map(() => this.elementRef.nativeElement.scrollTop),
-      )
-      .subscribe(scrollTop => {
-        this.page = Array.from(this.pageMap.values()).find(({ scrollRef }) => scrollRef === scrollTop) || this.pageMap.get('overview');
-        this.router.navigate([this.page.path]);
-        document.title = this.page.path; // TODO Custom title
-      });
+    // this.scrollSubscription = fromEvent(this.elementRef.nativeElement, 'scroll')
+    //   .pipe(
+    //     debounceTime(100),
+    //     distinctUntilChanged(),
+    //     map(() => this.elementRef.nativeElement.scrollTop),
+    //   )
+    //   .subscribe(scrollTop => {
+    //     this.page = Array.from(this.pageMap.values()).find(({ scrollRef }) => scrollRef === scrollTop) || this.pageMap.get('overview');
+    //     this.router.navigate([this.page.path]);
+    //   });
   }
 
   ngAfterViewInit(): void {
 
-    const overviewPage = new Page('overview', this.overviewPage);
-    const projectsPage = new Page('projects', this.projectsPage);
-    const certificationsPage = new Page('certifications', this.certificationsPage);
+    const overviewPage = new Page({
+      path: 'overview',
+      title: 'Michaell Alavedra',
+      component: this.overviewPage,
+    });
+
+    const projectsPage = new Page({
+      path: 'projects',
+      title: 'Projects of Michaell Alavedra',
+      component: this.projectsPage,
+    });
+
+    const certificationsPage = new Page({
+      path: 'certifications',
+      title: 'Certifications of Michaell Alavedra',
+      component: this.certificationsPage,
+    });
 
     overviewPage.setNextPage(projectsPage);
     projectsPage.setNextPage(certificationsPage);
@@ -108,7 +133,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
-    this.scrollSubscription.unsubscribe();
+    // this.scrollSubscription.unsubscribe();
   }
 
 }
