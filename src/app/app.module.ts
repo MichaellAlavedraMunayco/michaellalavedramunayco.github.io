@@ -16,17 +16,17 @@ import { CertificationsPageComponent } from './pages/certifications-page/certifi
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    OverviewPageComponent,
-    ProjectsPageComponent,
-    CertificationsPageComponent,
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgxProfileAvatarModule,
+  ],
+  declarations: [
+    AppComponent,
+    OverviewPageComponent,
+    ProjectsPageComponent,
+    CertificationsPageComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

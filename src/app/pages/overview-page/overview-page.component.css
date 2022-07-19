@@ -1,18 +1,14 @@
-div.container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
 div.avatar {
-  position: fixed;
+  position: absolute;
   z-index: 2;
-  top: 5%;
+  top: 0;
   right: 0;
-  bottom: 5%;
+  bottom: 0;
   left: 45%;
 }
+
 div.text {
-  position: fixed;
+  position: absolute;
   z-index: 1;
   z-index: 1;
   inset: 0;
@@ -21,14 +17,17 @@ div.text {
   justify-content: center;
   align-items: center;
 }
+
 p {
   color: var(--white-100);
   line-height: 4rem;
 }
+
 span.secondary-text {
   font-size: 4rem;
   color: var(--white-100);
 }
+
 span.primary-text {
   font-size: 4.5rem;
   font-weight: 500;

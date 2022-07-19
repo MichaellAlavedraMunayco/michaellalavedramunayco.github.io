@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-overview-page',
@@ -7,13 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverviewPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private elementRef: ElementRef<HTMLElement>) { }
 
   ngOnInit(): void {
   }
 
-  onLoadingAvatar(event: ProgressEvent) {
-    console.log(event);
+  getBoundingClientRect() {
+    return this.elementRef.nativeElement.getBoundingClientRect();
+  }
+
+  scrollIntoView() {
+    this.elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  onLoadingAvatar(_: ProgressEvent) {
+    // console.log(event);
   }
 
 }
