@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // rxjs
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 // components
 import { CertificationsPageComponent } from './pages/certifications-page/certifications-page.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
@@ -80,8 +80,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       .subscribe(param => {
         this.path = ['projects', 'certifications'].includes(param) ? param as Path : 'overview';
         this.page = this.pageMap.get(this.path);
-        this.page.scrollIntoView();
-        this.page.updateDeviceTitle();
+        this.page?.scrollIntoView();
+        this.page?.updateDeviceTitle();
       });
 
     // this.scrollSubscription = fromEvent(this.elementRef.nativeElement, 'scroll')

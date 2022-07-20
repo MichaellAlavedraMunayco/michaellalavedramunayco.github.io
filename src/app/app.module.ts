@@ -7,6 +7,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgxProfileAvatarModule } from '@michaelldev/ngx-profile-avatar';
 // Routing
 import { AppRoutingModule } from './app.routing';
+// Modules
+import { UiModule } from './ui/ui.module';
 // Components
 import { AppComponent } from './app.component';
 // Child Components
@@ -20,6 +22,7 @@ import { CertificationsPageComponent } from './pages/certifications-page/certifi
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    UiModule,
     NgxProfileAvatarModule,
   ],
   declarations: [
