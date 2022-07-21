@@ -1,34 +1,81 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinct, distinctUntilChanged } from 'rxjs/operators';
 
 
-const FPS = 1000 / 60;
-
 class Point {
 
-  index
   x: number;
   y: number;
-  lifetime: number;
+  root: boolean;
+  factor: number;
+  minRadius: number = 5;
 
-  constructor({ x, y, lifetime }: Partial<Point>) {
+  constructor({ x, y, root }: Partial<Point>) {
     this.x = x;
     this.y = y;
-    this.lifetime = lifetime || 0;
+    this.root = root;
+  }
+
+  get radius() {
+    return this.factor * this.minRadius;
+  }
+
+  get alpha() {
+    return this.factor / 2;
+  }
+
+  get color() {
+    return `rgba(30, 218, 161, ${this.alpha})`;
+    // return `rgba(255, 255, 255, ${this.alpha})`;
+  }
+
+  public draw(context: CanvasRenderingContext2D) {
+
+    context.beginPath();
+    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+    context.fillStyle = this.color;
+    context.fill();
+  }
+
+}
+
+class Line {
+
+  constructor(public root: Point, public previous: Point) {
+    return this;
+  }
+
+  public draw(context: CanvasRenderingContext2D) {
+
+    if (!this.root || !this.previous) return;
+
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    context.lineWidth = this.root.radius * 2;
+    context.strokeStyle = this.root.color;
+    context.beginPath();
+    context.moveTo(this.previous.x, this.previous.y);
+    context.lineTo(this.root.x, this.root.y);
+    context.stroke();
+    context.closePath();
   }
 }
 
 class PointStack {
 
   points: Array<Point>;
+  maxSize: number;
 
   constructor() {
     this.points = new Array<Point>();
+    this.maxSize = 40;
   }
 
   public add(point: Point) {
     this.points.push(point);
+    if (this.points.length > this.maxSize)
+      this.points.shift();
   }
 
   public get(index: number): Point {
@@ -36,11 +83,7 @@ class PointStack {
   }
 
   public previous(index: number): Point {
-    return this.get(index - 1) || this.get(index);
-  }
-
-  public remove(index: number) {
-    this.points.splice(index, 1);
+    return this.points[index - 1] || this.get(index);
   }
 
   public size() {
@@ -48,73 +91,21 @@ class PointStack {
   }
 }
 
-class Line {
-
-  private _point: Point;
-  private increment: number;
-  private decrement: number;
-  private rgb: { r: number, g: number, b: number };
-
-  lifetime: number;
-  widthStart: number;
-  join: CanvasLineJoin;
-  width: number;
-  strokeStyle: string;
-
-  constructor() {
-    this.lifetime = 2 * FPS;
-    this.widthStart = 5;
-    this.join = 'round';
-  }
-
-  get point() {
-    return this._point;
-  }
-
-  set point(point: Point) {
-    this._point = point;
-    this.increment = this.getIncrement();
-    this.decrement = this.getDecrement();
-    this.rgb = this.getRGB();
-    this.width = this.getWidth();
-    this.strokeStyle = this.getStrokeStyle();
-  }
-
-  private getIncrement() {
-    return this.point.lifetime / this.lifetime;
-  }
-
-  private getDecrement() {
-    return 1 - this.increment;
-  }
-
-  private getRGB() {
-    return {
-      // r: Math.floor(255),
-      // g: Math.floor(200 - (255 * this.decrement)),
-      // b: Math.floor(200 - (255 * this.increment))
-      r: Math.floor(30 - (7 * this.increment)),
-      g: Math.floor(218 - (95 * this.increment)),
-      b: Math.floor(161 - (228 * this.increment))
-    };
-  }
-
-  private getWidth() {
-    // return this.widthStart / this.point.lifetime * 2;
-    return this.widthStart * this.decrement;
-  }
-
-  getStrokeStyle() {
-    const { r, g, b } = this.rgb;
-    return `rgb(${r}, ${g}, ${b})`;
-  }
-
-}
 
 @Component({
   selector: 'app-cursor',
-  templateUrl: './cursor.component.html',
-  styleUrls: ['./cursor.component.css'],
+  template: `
+    <canvas #canvas></canvas>`,
+  styles: [`
+    :host,
+    canvas {
+        position: fixed;
+    }
+    canvas {
+        width: 100vw;
+        height: 100vh;
+        z-index: 9;
+    }`],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -125,6 +116,7 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   drawTimeoutId: number;
 
+  pointRoot: Point = new Point({ x: 0, y: -5, root: true });
   pointStack: PointStack = new PointStack();
 
   resizeSubscription: Subscription;
@@ -149,46 +141,32 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
     this.context = this.canvasRef.nativeElement.getContext('2d');
     this.onWindowResize();
 
-    const component = this;
+    const self = this;
 
-    (function draw() {
-      component.drawLines();
-      component.drawTimeoutId = window.setTimeout(draw, FPS);
+    (function render() {
+      self.start();
+      self.drawTimeoutId = window.setTimeout(render, 1000 / 60);
     })();
   }
 
-  drawLines = () => {
+  start() {
 
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
-    const line = new Line();
-
-    for (let index = 0; index < this.pointStack.size(); index++) {
+    for (let index = 0, size = this.pointStack.size(); index < size; index++) {
 
       const point = this.pointStack.get(index);
-      const lastPoint = this.pointStack.previous(index);
+      point.root = false;
+      point.factor = index / size;
+      const previousPoint = this.pointStack.previous(index);
+      point.factor = (index - 1) / size;
 
-      line.point = point;
-      point.lifetime += 1;
-
-      if (point.lifetime > line.lifetime) {
-        this.pointStack.remove(index);
-        continue;
-      }
-
-      this.context.lineJoin = line.join;
-      this.context.lineWidth = line.width;
-      this.context.strokeStyle = line.strokeStyle;
-
-      this.context.beginPath();
-      this.context.moveTo(lastPoint.x, lastPoint.y);
-      this.context.lineTo(point.x, point.y);
-      this.context.stroke();
-      this.context.closePath();
-
+      new Line(point, previousPoint).draw(this.context);
     }
 
-  }
+    this.pointRoot.draw(this.context);
+    this.pointStack.add(this.pointRoot);
+  };
 
   onWindowResize() {
     if (!this.context) return;
@@ -197,7 +175,7 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onMouseMove({ x, y }: MouseEvent) {
-    this.pointStack.add(new Point({ x, y }));
+    this.pointRoot = new Point({ x, y, root: true });
   }
 
 
@@ -211,21 +189,21 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
 
 // function enableListeners() {
 
-  // myCanvas.addEventListener('mousemove', function (e) {
-  //   if (frame === drawEveryFrame) {
-  //     addPoint(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-  //     frame = 0;
-  //   }
-  //   frame++;
-  // });
+// myCanvas.addEventListener('mousemove', function (e) {
+//   if (frame === drawEveryFrame) {
+//     addPoint(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+//     frame = 0;
+//   }
+//   frame++;
+// });
 
-  // myCanvas.addEventListener('mouseover', function (e) { });
-  // myCanvas.addEventListener('mouseleave', function (e) { });
+// myCanvas.addEventListener('mouseover', function (e) { });
+// myCanvas.addEventListener('mouseleave', function (e) { });
 
-  // myCanvas.addEventListener('touchstart', function (e) {
-  //   console.log(e.touches);
-  // });
-  // myCanvas.addEventListener('touchmove', function (e) { });
-  // myCanvas.addEventListener('touchend', function (e) { });
+// myCanvas.addEventListener('touchstart', function (e) {
+//   console.log(e.touches);
+// });
+// myCanvas.addEventListener('touchmove', function (e) { });
+// myCanvas.addEventListener('touchend', function (e) { });
 
 // }
