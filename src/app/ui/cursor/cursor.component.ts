@@ -117,11 +117,11 @@ class PointStack {
     canvas {
         position: fixed;
         pointer-events: none;
+        z-index: 9;
     }
     canvas {
         width: 100vw;
         height: 100vh;
-        z-index: 3;
     }`],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

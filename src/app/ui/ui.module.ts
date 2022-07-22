@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Component
 import { CursorComponent } from './cursor/cursor.component';
+import { TypographyDirective } from './typography.directive';
 
 
 
@@ -12,9 +13,11 @@ import { CursorComponent } from './cursor/cursor.component';
   ],
   declarations: [
     CursorComponent,
+    TypographyDirective,
   ],
   exports: [
     CursorComponent,
+    TypographyDirective,
   ],
 })
 export class UiModule { }
