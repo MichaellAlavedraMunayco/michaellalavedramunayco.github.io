@@ -1,24 +1,32 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { fromEvent, merge, Observable, Subscription } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime, distinct, distinctUntilChanged } from 'rxjs/operators';
 
 
-class Point {
+class Vector {
 
-  x: number;
-  y: number;
-  root: boolean;
-  factor: number;
-  minRadius: number = 5;
+  constructor(
+    public x: number,
+    public y: number,
+  ) { }
 
-  constructor({ x, y, root }: Partial<Point>) {
+  public set(x: number, y: number) {
     this.x = x;
     this.y = y;
-    this.root = root;
+  }
+}
+
+class Point {
+
+  position: Vector;
+  factor: number;
+
+  constructor({ position }: Partial<Point>) {
+    this.position = position;
   }
 
   get radius() {
-    return this.factor * this.minRadius;
+    return this.factor * 10;
   }
 
   get alpha() {
@@ -27,13 +35,17 @@ class Point {
 
   get color() {
     return `rgba(30, 218, 161, ${this.alpha})`;
-    // return `rgba(255, 255, 255, ${this.alpha})`;
+  }
+
+  setFactor(factor: number) {
+    this.factor = factor;
+    return this;
   }
 
   public draw(context: CanvasRenderingContext2D) {
 
     context.beginPath();
-    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+    context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, true);
     context.fillStyle = this.color;
     context.fill();
   }
@@ -42,21 +54,25 @@ class Point {
 
 class Line {
 
-  constructor(public root: Point, public previous: Point) {
-    return this;
+  from: Point;
+  to: Point;
+
+  constructor({ from, to }: Partial<Line>) {
+    this.from = from;
+    this.to = to;
   }
 
   public draw(context: CanvasRenderingContext2D) {
 
-    if (!this.root || !this.previous) return;
+    if (!this.from || !this.to) return;
 
     context.lineJoin = 'round';
     context.lineCap = 'round';
-    context.lineWidth = this.root.radius * 2;
-    context.strokeStyle = this.root.color;
+    context.lineWidth = this.to.radius;
+    context.strokeStyle = this.to.color;
     context.beginPath();
-    context.moveTo(this.previous.x, this.previous.y);
-    context.lineTo(this.root.x, this.root.y);
+    context.moveTo(this.from.position.x, this.from.position.y);
+    context.lineTo(this.to.position.x, this.to.position.y);
     context.stroke();
     context.closePath();
   }
@@ -69,7 +85,7 @@ class PointStack {
 
   constructor() {
     this.points = new Array<Point>();
-    this.maxSize = 40;
+    this.maxSize = 23;
   }
 
   public add(point: Point) {
@@ -116,7 +132,8 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   drawTimeoutId: number;
 
-  pointRoot: Point = new Point({ x: 0, y: -5, root: true });
+  point: Point = new Point({ position: new Vector(0, -5) });
+
   pointStack: PointStack = new PointStack();
 
   resizeSubscription: Subscription;
@@ -155,17 +172,16 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     for (let index = 0, size = this.pointStack.size(); index < size; index++) {
 
-      const point = this.pointStack.get(index);
-      point.root = false;
-      point.factor = index / size;
-      const previousPoint = this.pointStack.previous(index);
-      point.factor = (index - 1) / size;
+      const point = this.pointStack.get(index).setFactor(index / size);
+      const previous = this.pointStack.previous(index);
 
-      new Line(point, previousPoint).draw(this.context);
+      const line = new Line({ from: previous, to: point });
+      line.draw(this.context);
+
     }
 
-    this.pointRoot.draw(this.context);
-    this.pointStack.add(this.pointRoot);
+    this.point.draw(this.context);
+    this.pointStack.add(this.point);
   };
 
   onWindowResize() {
@@ -175,7 +191,7 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onMouseMove({ x, y }: MouseEvent) {
-    this.pointRoot = new Point({ x, y, root: true });
+    this.point = new Point({ position: new Vector(x, y) });
   }
 
 
@@ -186,24 +202,3 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 }
-
-// function enableListeners() {
-
-// myCanvas.addEventListener('mousemove', function (e) {
-//   if (frame === drawEveryFrame) {
-//     addPoint(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-//     frame = 0;
-//   }
-//   frame++;
-// });
-
-// myCanvas.addEventListener('mouseover', function (e) { });
-// myCanvas.addEventListener('mouseleave', function (e) { });
-
-// myCanvas.addEventListener('touchstart', function (e) {
-//   console.log(e.touches);
-// });
-// myCanvas.addEventListener('touchmove', function (e) { });
-// myCanvas.addEventListener('touchend', function (e) { });
-
-// }
