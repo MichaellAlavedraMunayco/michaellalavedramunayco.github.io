@@ -116,11 +116,12 @@ class PointStack {
     :host,
     canvas {
         position: fixed;
+        pointer-events: none;
     }
     canvas {
         width: 100vw;
         height: 100vh;
-        z-index: 9;
+        z-index: 3;
     }`],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
