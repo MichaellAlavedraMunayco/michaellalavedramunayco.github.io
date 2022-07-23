@@ -37,12 +37,8 @@ export class ProgressComponent implements OnInit, OnChanges {
     percent = percent > 100 ? 100 : percent;
     this._percent = percent;
 
-    if (this.hideOnCompletion && this._percent === 100) {
-
-      window.setTimeout(() => {
-        this.elementRef.nativeElement.className = 'hide';
-      }, 100)
-    }
+    if (this.hideOnCompletion && this._percent === 100)
+      this.elementRef.nativeElement.className = 'hide';
   }
 
   @Input() hideOnCompletion: boolean = true;
