@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+// External  Module
+import { AngularSvgIconModule, SvgIconRegistryService } from 'angular-svg-icon';
+import * as Icon from './icon/icons.json';
 // Module
 import { CommonModule } from '@angular/common';
 // Component
@@ -11,7 +14,8 @@ import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AngularSvgIconModule,
   ],
   declarations: [
     CursorComponent,
@@ -25,5 +29,16 @@ import { ButtonComponent } from './button/button.component';
     TypographyDirective,
     ButtonComponent,
   ],
+  providers: [
+    SvgIconRegistryService,
+  ]
 })
-export class UiModule { }
+export class UiModule {
+
+  constructor(private iconsService: SvgIconRegistryService) {
+
+    this.iconsService.addSvg('arrow-down', Icon['arrow-down']);
+
+  }
+
+}
