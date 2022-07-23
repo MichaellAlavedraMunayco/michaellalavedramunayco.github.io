@@ -16,15 +16,9 @@
     </div>
 
     <div class="page-button">
-
-      <ui-button type="secondary" size="small" (click)="previousPage.next()">
-        <svg-icon name="arrow-up"></svg-icon>
-      </ui-button>
-
       <ui-button type="secondary" size="small" (click)="nextPage.next()">
         <svg-icon name="arrow-down"></svg-icon>
       </ui-button>
-
     </div>
 
   </div>
@@ -32,8 +26,8 @@
 </div>
 
 <div class="avatar--layout state--default" [class.state--show]="loadPercent === 100">
-  <!-- <ngx-profile-avatar url="assets/3d/michaell.glb" tracker="cursor" width="100%" height="100%"
-    (onLoading)="onLoadingAvatar($event)"></ngx-profile-avatar> -->
+  <ngx-profile-avatar url="assets/3d/michaell.glb" tracker="cursor" width="100%" height="100%"
+    (onLoading)="onLoadingAvatar($event)"></ngx-profile-avatar>
 </div>
 
 <div class="avatar--progress">

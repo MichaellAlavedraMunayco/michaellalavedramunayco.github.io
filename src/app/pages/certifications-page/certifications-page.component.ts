@@ -1,42 +1,20 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
+import { PageComponent } from 'src/app/core/models/page-component';
 
 @Component({
   selector: 'app-certifications-page',
   templateUrl: './certifications-page.component.html',
   styleUrls: ['./certifications-page.component.less']
 })
-export class CertificationsPageComponent implements OnInit {
+export class CertificationsPageComponent extends PageComponent implements OnInit {
 
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
 
-  constructor(private elementRef: ElementRef<HTMLElement>) { }
-
-  ngOnInit(): void {
+  constructor(elementRef: ElementRef<HTMLElement>) {
+    super(elementRef);
   }
 
-  getBoundingClientRect() {
-    return this.elementRef.nativeElement.getBoundingClientRect();
-  }
-
-  scrollIntoView() {
-    this.elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  moveToFirst() {
-    const node = this.elementRef.nativeElement;
-    const parentNode = this.elementRef.nativeElement.parentNode;
-
-    parentNode.removeChild(node);
-    parentNode.prepend(node);
-  }
-
-  moveToLast() {
-    const node = this.elementRef.nativeElement;
-    const parentNode = this.elementRef.nativeElement.parentNode;
-
-    parentNode.removeChild(node);
-    parentNode.append(node);
-  }
+  ngOnInit(): void { }
 
 }
