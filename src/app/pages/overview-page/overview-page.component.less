@@ -59,3 +59,22 @@ div.avatar--layout {
     max-height: 55%;
   }
 }
+
+div.avatar--progress {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  padding: 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.state--default {
+  opacity: 0;
+  transition: opacity 4s;
+}
+
+.state--show {
+  opacity: 1;
+}

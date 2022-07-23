@@ -9,6 +9,8 @@ export class OverviewPageComponent implements OnInit {
 
   @Output() nextPage = new EventEmitter<boolean>();
 
+  loadPercent: number = 0;
+
   constructor(private elementRef: ElementRef<HTMLElement>) { }
 
   ngOnInit(): void {
@@ -22,8 +24,8 @@ export class OverviewPageComponent implements OnInit {
     this.elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
 
-  onLoadingAvatar(_: ProgressEvent) {
-    // console.log(event);
+  onLoadingAvatar({ loaded, total }: ProgressEvent) {
+    this.loadPercent = loaded / total * 100;
   }
 
 }
