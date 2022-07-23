@@ -109,7 +109,7 @@ class PointStack {
 
 
 @Component({
-  selector: 'app-cursor',
+  selector: 'ui-cursor',
   template: `
     <canvas #canvas></canvas>`,
   styles: [`
