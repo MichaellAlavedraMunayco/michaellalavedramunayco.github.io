@@ -133,7 +133,7 @@ export class CursorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   drawTimeoutId: number;
 
-  point: Point = new Point({ position: new Vector(0, -5) });
+  point: Point = new Point({ position: new Vector(737, 278) });
 
   pointStack: PointStack = new PointStack();
 
