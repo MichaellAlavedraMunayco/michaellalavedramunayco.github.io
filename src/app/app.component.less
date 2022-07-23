@@ -2,10 +2,16 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 1fr);
-  overflow: hidden;
+  overflow: scroll;
   height: 100vh;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+:host::-webkit-scrollbar {
+  display: none;
 }
 
 .page {

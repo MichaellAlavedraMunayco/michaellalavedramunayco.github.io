@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // rxjs
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { fromEvent, merge, Subscription } from 'rxjs';
+import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
 // components
 import { CertificationsPageComponent } from './pages/certifications-page/certifications-page.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
@@ -10,6 +10,8 @@ import { ProjectsPageComponent } from './pages/projects-page/projects-page.compo
 
 type Path = 'overview' | 'projects' | 'certifications';
 type PageComponent = OverviewPageComponent | ProjectsPageComponent | CertificationsPageComponent;
+type PageEvent = 'onprevious' | 'onnext';
+type PageParams = { url?: string, scrollRef?: number, deltaY?: number, key?: string };
 
 class Page {
 
@@ -32,7 +34,7 @@ class Page {
     return this.component.getBoundingClientRect().y;
   }
 
-  setScrollRef() {
+  updateScrollRef() {
     this.scrollRef = this.getScrollRef();
   }
 
@@ -52,52 +54,72 @@ class Page {
 
 class PageController {
 
-  method: 'onprevious' | 'onnext';
-  currentPage: Page;
+  page: Page;
+  private event: PageEvent = 'onprevious';
+  private stack: Page[] = [];
 
-  map: Map<Path, Page> = new Map<Path, Page>();
-  stack: Page[] = [];
+  lastScrollRef: number = 0;
 
-  constructor() {
-    this.method = 'onprevious';
+  constructor() { }
+
+  setPage(page: Page) {
+    this.page = page;
   }
 
-  init(pages: Page[]) {
-
-    this.stack = pages;
-
-    pages.forEach(page => {
-      this.map.set(page.path, page);
-    });
+  setEvent(event: PageEvent) {
+    this.event = event;
   }
 
-  get(path: Path): Page {
-    return this.map.get(path);
+  setStack(stack: Page[]) {
+    this.stack = stack;
   }
 
-  safePath(path: string): Path {
-    return ['projects', 'certifications'].includes(path) ? path as Path : 'overview';
+  toPath(url: string): Path {
+    const path = url.replace('/', '');
+    return ['projects', 'certifications'].includes(path)
+      ? path as Path
+      : 'overview';
   }
 
-  setMethod(method: 'onprevious' | 'onnext') {
-    this.method = method;
+  findPage({ url, scrollRef }: PageParams): Page {
+    if (url) {
+      const path = this.toPath(url);
+      return this.stack.find(page => page.path === path);
+    }
+    if (scrollRef)
+      return this.stack.find(page => page.scrollRef === scrollRef);
   }
 
-  setCurrentPage(page: Page): void {
+  getEventBy({ scrollRef, key, deltaY }: PageParams): PageEvent {
 
-    if (!page) return;
+    if (scrollRef)
+      return scrollRef > this.lastScrollRef ? 'onnext' : 'onprevious';
 
-    this.orderPages();
+    if (deltaY)
+      return deltaY > 0 ? 'onnext' : 'onprevious';
 
-    this.currentPage = page;
-    this.currentPage.setTitle();
-    this.currentPage.scrollIntoView();
-
+    if (key)
+      return {
+        'ArrowDown': 'onnext',
+        'ArrowUp': 'onprevious'
+      }[key] as PageEvent;
   }
 
-  private orderPages() {
+  navigate() {
 
-    if (this.method === 'onprevious') {
+    if (!this.page) return;
+
+    this.updatePagesOrder();
+
+    this.page.setTitle();
+    this.page.scrollIntoView();
+  }
+
+  private updatePagesOrder() {
+
+    if (!this.event) return;
+
+    if (this.event === 'onprevious') {
 
       const lastPage = this.stack.pop();
       this.stack.unshift(lastPage);
@@ -105,13 +127,14 @@ class PageController {
       lastPage.component.moveToFirst();
     }
 
-    if (this.method === 'onnext') {
+    if (this.event === 'onnext') {
 
       const firstPage = this.stack.shift();
       this.stack.push(firstPage);
 
       firstPage.component.moveToLast();
     }
+
   }
 
 }
@@ -119,7 +142,7 @@ class PageController {
 @Component({
   selector: 'app-root',
   templateUrl: `./app.component.html`,
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 
@@ -130,38 +153,49 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   pageController: PageController = new PageController();
 
   routerSubscription: Subscription;
-  // scrollSubscription: Subscription;
+  keySubscription: Subscription;
 
 
   constructor(
-    // private elementRef: ElementRef<HTMLElement>,
     private router: Router,
   ) {
 
     this.routerSubscription = this.router.events
       .pipe(
+        distinct(),
         filter<NavigationEnd>(event => event instanceof NavigationEnd),
-        map(event => event.url.replace('/', '')),
       )
-      .subscribe(param => {
+      .subscribe(({ url }) => {
 
-        const path = this.pageController.safePath(param);
-        const page = this.pageController.get(path);
+        const page = this.pageController.findPage({ url });
 
-        this.pageController.setCurrentPage(page);
+        this.pageController.setPage(page);
+        this.pageController.navigate();
       });
 
-    // this.scrollSubscription = fromEvent(this.elementRef.nativeElement, 'scroll')
-    //   .pipe(
-    //     debounceTime(100),
-    //     distinctUntilChanged(),
-    //     map(() => this.elementRef.nativeElement.scrollTop),
-    //   )
-    //   .subscribe(scrollTop => {
-    //     this.page = Array.from(this.pageMap.values()).find(({ scrollRef }) => scrollRef === scrollTop) || this.pageMap.get('overview');
-    //     this.router.navigate([this.page.path]);
-    //   });
+
+    this.keySubscription = merge(
+      fromEvent<KeyboardEvent>(document, 'keydown'),
+      fromEvent<KeyboardEvent>(document, 'keyup'),
+    )
+      .pipe(
+        debounceTime(100),
+        distinctUntilChanged(),
+        filter(({ key, repeat }) => ['ArrowDown', 'ArrowUp'].includes(key) && !repeat),
+      )
+      .subscribe(event => {
+
+        event.preventDefault();
+
+        const { key } = event;
+
+        const pageEvent = this.pageController.getEventBy({ key });
+
+        this.onGoToPage(pageEvent);
+
+      });
   }
+
 
   ngAfterViewInit(): void {
 
@@ -187,27 +221,30 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     projectsPage.setSiblingPages(overviewPage, certificationsPage);
     certificationsPage.setSiblingPages(projectsPage, overviewPage);
 
-    this.pageController.init([
+    this.pageController.setPage(overviewPage);
+
+    this.pageController.setStack([
       overviewPage,
       projectsPage,
       certificationsPage,
     ]);
-
   }
 
-  onGoToPreviousPage() {
-    this.pageController.setMethod('onprevious');
-    this.router.navigate([this.pageController.currentPage.previousPage.path]);
-  }
+  onGoToPage(pageEvent: PageEvent) {
 
-  onGoToNextPage() {
-    this.pageController.setMethod('onnext');
-    this.router.navigate([this.pageController.currentPage.nextPage.path]);
+    const page = {
+      ['onprevious']: this.pageController.page.previousPage,
+      ['onnext']: this.pageController.page.nextPage,
+    }[pageEvent];
+
+    this.pageController.setEvent(pageEvent);
+
+    this.router.navigate([page.path]);
   }
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
-    // this.scrollSubscription.unsubscribe();
+    this.keySubscription.unsubscribe();
   }
 
 }
