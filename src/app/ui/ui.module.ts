@@ -37,8 +37,9 @@ export class UiModule {
 
   constructor(private iconsService: SvgIconRegistryService) {
 
-    this.iconsService.addSvg('arrow-down', Icon['arrow-down']);
-
+    Object.entries(Icon[0]).forEach(([key, svg]) => {
+      this.iconsService.addSvg(key, svg);
+    })
   }
 
 }
