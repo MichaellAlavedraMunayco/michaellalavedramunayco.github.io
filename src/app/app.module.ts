@@ -1,10 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 // Environment
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 // External Modules
 import { NgxProfileAvatarModule } from '@michaelldev/ngx-profile-avatar';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 // Routing
 import { AppRoutingModule } from './app.routing';
 // Modules
@@ -20,10 +22,12 @@ import { CertificationsPageComponent } from './pages/certifications-page/certifi
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     UiModule,
     NgxProfileAvatarModule,
+    AngularSvgIconModule.forRoot(),
   ],
   declarations: [
     AppComponent,
