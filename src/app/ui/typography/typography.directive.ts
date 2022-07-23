@@ -24,8 +24,8 @@ export class TypographyDirective implements AfterViewInit {
   get fontSize() {
     return {
       ['display']: {
-        ['extralarge']: `${72 / this.sizeBase}rem`,
-        ['large']: `${60 / this.sizeBase}rem`,
+        ['extralarge']: `${128 / this.sizeBase}rem`,
+        ['large']: `${80 / this.sizeBase}rem`,
         ['medium']: `${48 / this.sizeBase}rem`,
         ['small']: `${36 / this.sizeBase}rem`,
         ['extrasmall']: `${30 / this.sizeBase}rem`,
