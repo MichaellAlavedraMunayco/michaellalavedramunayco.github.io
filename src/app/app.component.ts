@@ -126,7 +126,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   }
 
-  onScrollToNextPage() {
+  onGoToNextPage() {
     this.page = this.page.getNextPage();
     this.router.navigate([this.page.path]);
   }
