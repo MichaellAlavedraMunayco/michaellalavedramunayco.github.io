@@ -17,7 +17,8 @@ class Page {
   path: Path;
   title: string;
   component: PageComponent;
-  private nextPage: Page;
+  previousPage: Page;
+  nextPage: Page;
 
   constructor({ path, title, component }: Partial<Page>) {
     this.path = path;
@@ -31,21 +32,88 @@ class Page {
     return this.component.getBoundingClientRect().y;
   }
 
-  setNextPage(nextPage: Page) {
-    this.nextPage = nextPage;
+  setScrollRef() {
+    this.scrollRef = this.getScrollRef();
   }
 
-  getNextPage(): Page {
-    return this.nextPage;
+  setSiblingPages(previous: Page, next: Page) {
+    this.previousPage = previous;
+    this.nextPage = next;
   }
 
   scrollIntoView() {
     this.component.scrollIntoView();
   }
 
-  updateDeviceTitle() {
+  setTitle() {
     document.title = this.title;
   }
+}
+
+class PageController {
+
+  method: 'onprevious' | 'onnext';
+  currentPage: Page;
+
+  map: Map<Path, Page> = new Map<Path, Page>();
+  stack: Page[] = [];
+
+  constructor() {
+    this.method = 'onprevious';
+  }
+
+  init(pages: Page[]) {
+
+    this.stack = pages;
+
+    pages.forEach(page => {
+      this.map.set(page.path, page);
+    });
+  }
+
+  get(path: Path): Page {
+    return this.map.get(path);
+  }
+
+  safePath(path: string): Path {
+    return ['projects', 'certifications'].includes(path) ? path as Path : 'overview';
+  }
+
+  setMethod(method: 'onprevious' | 'onnext') {
+    this.method = method;
+  }
+
+  setCurrentPage(page: Page): void {
+
+    if (!page) return;
+
+    this.orderPages();
+
+    this.currentPage = page;
+    this.currentPage.setTitle();
+    this.currentPage.scrollIntoView();
+
+  }
+
+  private orderPages() {
+
+    if (this.method === 'onprevious') {
+
+      const lastPage = this.stack.pop();
+      this.stack.unshift(lastPage);
+
+      lastPage.component.moveToFirst();
+    }
+
+    if (this.method === 'onnext') {
+
+      const firstPage = this.stack.shift();
+      this.stack.push(firstPage);
+
+      firstPage.component.moveToLast();
+    }
+  }
+
 }
 
 @Component({
@@ -59,9 +127,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild(ProjectsPageComponent) projectsPage: ProjectsPageComponent;
   @ViewChild(CertificationsPageComponent) certificationsPage: CertificationsPageComponent;
 
-  pageMap: Map<Path, Page> = new Map<Path, Page>();
-  path: Path;
-  page: Page;
+  pageController: PageController = new PageController();
 
   routerSubscription: Subscription;
   // scrollSubscription: Subscription;
@@ -78,10 +144,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         map(event => event.url.replace('/', '')),
       )
       .subscribe(param => {
-        this.path = ['projects', 'certifications'].includes(param) ? param as Path : 'overview';
-        this.page = this.pageMap.get(this.path);
-        this.page?.scrollIntoView();
-        this.page?.updateDeviceTitle();
+
+        const path = this.pageController.safePath(param);
+        const page = this.pageController.get(path);
+
+        this.pageController.setCurrentPage(page);
       });
 
     // this.scrollSubscription = fromEvent(this.elementRef.nativeElement, 'scroll')
@@ -116,19 +183,26 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       component: this.certificationsPage,
     });
 
-    overviewPage.setNextPage(projectsPage);
-    projectsPage.setNextPage(certificationsPage);
-    certificationsPage.setNextPage(overviewPage);
+    overviewPage.setSiblingPages(certificationsPage, projectsPage);
+    projectsPage.setSiblingPages(overviewPage, certificationsPage);
+    certificationsPage.setSiblingPages(projectsPage, overviewPage);
 
-    this.pageMap.set(overviewPage.path, overviewPage);
-    this.pageMap.set(projectsPage.path, projectsPage);
-    this.pageMap.set(certificationsPage.path, certificationsPage);
+    this.pageController.init([
+      overviewPage,
+      projectsPage,
+      certificationsPage,
+    ]);
 
   }
 
+  onGoToPreviousPage() {
+    this.pageController.setMethod('onprevious');
+    this.router.navigate([this.pageController.currentPage.previousPage.path]);
+  }
+
   onGoToNextPage() {
-    this.page = this.page.getNextPage();
-    this.router.navigate([this.page.path]);
+    this.pageController.setMethod('onnext');
+    this.router.navigate([this.pageController.currentPage.nextPage.path]);
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,10 @@
-<app-overview-page class="page" (nextPage)="onGoToNextPage()"></app-overview-page>
-<app-projects-page class="page"></app-projects-page>
-<app-certifications-page class="page"></app-certifications-page>
+<app-overview-page class="page" (previousPage)="onGoToPreviousPage()" (nextPage)="onGoToNextPage()">
+</app-overview-page>
 
-<ui-cursor></ui-cursor>
+<app-projects-page class="page" (previousPage)="onGoToPreviousPage()" (nextPage)="onGoToNextPage()">
+</app-projects-page>
+
+<app-certifications-page class="page" (previousPage)="onGoToPreviousPage()" (nextPage)="onGoToNextPage()">
+</app-certifications-page>
+
+<!-- <ui-cursor></ui-cursor> -->
