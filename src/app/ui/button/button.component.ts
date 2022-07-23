@@ -12,10 +12,14 @@ type ButtonSize = 'small' | 'medium';
     </button>`,
   styles: [`
     button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         aspect-ratio: 1;
         border-radius: 50%;
         border: 0px;
         color: var(--white);
+        fill: var(--white);
         outline: none;
         background: transparent;
         transition: background-color 0.3s;
