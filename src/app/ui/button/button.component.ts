@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 
 type ButtonType = 'primary' | 'secondary';
@@ -7,7 +7,7 @@ type ButtonSize = 'small' | 'medium';
 @Component({
   selector: 'ui-button',
   template: `
-    <button #button [type]="type" (click)="onClick($event)">
+    <button #button [type]="type">
     	<ng-content></ng-content>
     </button>`,
   styles: [`
@@ -34,8 +34,6 @@ export class ButtonComponent implements OnInit, AfterViewInit {
   @Input() type: ButtonType = 'primary';
   @Input() size: ButtonSize = 'medium';
 
-  @Output() click = new EventEmitter<Event>();
-
   @ViewChild('button') button: ElementRef<HTMLButtonElement>;
 
 
@@ -61,9 +59,5 @@ export class ButtonComponent implements OnInit, AfterViewInit {
       ['primary']: 'var(--white-10) !important',
       ['secondary']: 'transparent !important',
     }[this.type];
-  }
-
-  onClick(event: Event) {
-    this.click.emit(event);
   }
 }
