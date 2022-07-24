@@ -1,30 +1,41 @@
-@import url("assets/fonts/Inter/inter.font-face.css");
+// @import url("assets/fonts/Inter/inter.font-face.css");
+@import url("assets/fonts/FamiljenGrotesk/familjen-grotesk.font-face.css");
 @import url("assets/styles/reset.less");
 @import url("assets/styles/normalize.less");
+@import url("assets/styles/breakpoint.less");
 
 :root {
   --dark: #131622;
   --primary-dark: #12494a;
-  --primary-normal: #1edaa1;
+  --primary: #1edaa1;
   --primary-light: #07c8cc;
   --secondary-dark: #1e3566;
-  --secondary-normal: #075fe4;
+  --secondary: #075fe4;
   --secondary-light: #255cd1;
-  --white-100: rgba(255, 255, 255, 1);
+  --white: rgb(255, 255, 255);
   --white-70: rgba(255, 255, 255, 0.7);
   --white-50: rgba(255, 255, 255, 0.5);
   --white-40: rgba(255, 255, 255, 0.4);
   --white-30: rgba(255, 255, 255, 0.3);
   --white-10: rgba(255, 255, 255, 0.1);
-  --black-100: rgba(0, 0, 0, 1);
+  --black: rgb(0, 0, 0);
   --black-50: rgba(0, 0, 0, 0.5);
 }
 
 *,
 html,
 body {
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
+  font-family: "Familjen Grotesk", sans-serif;
+  font-size: 16px;
+  cursor: none;
+
+  @media @mobile {
+    font-size: 7px;
+  }
+
+  @media @tablet {
+    font-size: 10px;
+  }
 }
 
 body {
@@ -32,13 +43,12 @@ body {
   background-position: center;
   background-origin: border-box;
   background-attachment: fixed;
-  background-size: auto;
+  background-size: cover;
   background-repeat: no-repeat;
-}
+  height: 100vh;
+  overflow: hidden;
 
-/* For extremely small screen devices (595px and below) */
-@media only screen and (max-width: 595px) {
-  body {
+  @media @mobile {
     background-image: url("assets/images/pattern.mobile.svg"),
       linear-gradient(
         52.06deg,
@@ -48,11 +58,8 @@ body {
         var(--primary-dark) 87.84%
       );
   }
-}
 
-/* Small screen devices (600px and above) */
-@media only screen and (min-width: 600px) {
-  body {
+  @media @tablet {
     background-image: url("assets/images/pattern.desktop.svg"),
       linear-gradient(
         67.32deg,
@@ -62,16 +69,4 @@ body {
         var(--primary-dark) 100%
       );
   }
-}
-
-/* Medium screen devices (768px and above) */
-@media only screen and (min-width: 768px) {
-}
-
-/* Big screen devices (889px and above) */
-@media only screen and (min-width: 889px) {
-}
-
-/* Extra big screen devices (1200px and above) */
-@media only screen and (min-width: 1200px) {
 }

@@ -1,0 +1,28 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  overflow: scroll;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+:host::-webkit-scrollbar {
+  display: none;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+button {
+  position: absolute;
+  z-index: 3;
+}
