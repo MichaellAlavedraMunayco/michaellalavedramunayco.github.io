@@ -21,8 +21,21 @@ type ButtonSize = 'small' | 'medium';
         color: var(--white);
         fill: var(--white);
         outline: none;
-        background: transparent;
         transition: background-color 0.3s;
+    }
+    button.small {
+        width: 48px;
+        height: 48px;
+    }
+    button.medium {
+        width: 64px;
+        height: 64px;
+    }
+    button.primary {
+        background-color: var(--white-10);
+    }
+    button.secondary {
+        background-color: transparent;
     }
     button:hover {
         background-color: var(--white-30);
@@ -42,22 +55,6 @@ export class ButtonComponent implements OnInit, AfterViewInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.button.nativeElement.style.width = this.dimension;
-    this.button.nativeElement.style.height = this.dimension;
-    this.button.nativeElement.style.backgroundColor = this.background;
-  }
-
-  get dimension() {
-    return {
-      ['small']: '48px',
-      ['medium']: '64px',
-    }[this.size];
-  }
-
-  get background() {
-    return {
-      ['primary']: 'var(--white-10) !important',
-      ['secondary']: 'transparent !important',
-    }[this.type];
+    this.button.nativeElement.className = `${this.type} ${this.size}`;
   }
 }
