@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 // Environment
 import { environment } from '../environments/environment';
-import { ServiceWorkerModule } from '@angular/service-worker';
 // External Modules
 import { NgxProfileAvatarModule } from '@michaelldev/ngx-profile-avatar';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -21,6 +22,7 @@ import { CertificationsPageComponent } from './pages/certifications-page/certifi
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

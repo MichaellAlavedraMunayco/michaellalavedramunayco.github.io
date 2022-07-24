@@ -34,6 +34,7 @@ export class OverviewPageComponent extends PageComponent implements OnInit {
 
   onLoadingAvatar({ loaded, total }: ProgressEvent) {
     this.loadPercent = loaded / total * 100;
+    console.log("🚀 ~ this.loadPercent", this.loadPercent)
   }
 
 }
