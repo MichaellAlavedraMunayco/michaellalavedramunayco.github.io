@@ -26,10 +26,28 @@
 </div>
 
 <div class="avatar--layout state--default" [class.state--show]="loadPercent === 100">
-  <ngx-profile-avatar url="assets/3d/michaell.glb" tracker="cursor" width="100%" height="100%"
+
+  <ngx-profile-avatar url="assets/3d/michaell.glb" [tracker]="avatarTracker" width="100%" height="100%"
     (onLoading)="onLoadingAvatar($event)"></ngx-profile-avatar>
+
+  <div class="avatar--control">
+
+    <ng-container *ngIf="avatarTracker === 'face'">
+      <ui-button type="primary" size="small" (click)="avatarTracker = 'cursor'">
+        <svg-icon name="pointer"></svg-icon>
+      </ui-button>
+    </ng-container>
+
+    <ng-container *ngIf="avatarTracker === 'cursor'">
+      <ui-button type="primary" size="small" (click)="avatarTracker = 'face'">
+        <svg-icon name="record"></svg-icon>
+      </ui-button>
+    </ng-container>
+
+  </div>
+
 </div>
 
-<div class="avatar--progress">
+<div class="progress--container">
   <ui-progress [percent]="loadPercent"></ui-progress>
 </div>
