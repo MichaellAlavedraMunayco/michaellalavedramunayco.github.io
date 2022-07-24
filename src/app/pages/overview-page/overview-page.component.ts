@@ -12,7 +12,6 @@ export class OverviewPageComponent extends PageComponent implements OnInit {
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
 
-  avatarLoaded: boolean = false;
   avatarPercent: number = 0;
   avatarTracker: Tracker = 'cursor';
   // timeoutId: number;
@@ -35,7 +34,6 @@ export class OverviewPageComponent extends PageComponent implements OnInit {
 
   onLoadingAvatar({ loaded, total }: ProgressEvent) {
     this.avatarPercent = loaded / total * 100;
-    this.avatarLoaded = this.avatarPercent >= 100;
   }
 
 }

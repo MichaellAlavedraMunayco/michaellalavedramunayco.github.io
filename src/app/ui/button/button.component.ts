@@ -7,7 +7,7 @@ type ButtonSize = 'small' | 'medium';
 @Component({
   selector: 'ui-button',
   template: `
-    <button #button [type]="type">
+    <button #button [type]="type" aria-label="icon-button">
     	<ng-content></ng-content>
     </button>`,
   styles: [`

@@ -15,6 +15,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRe
         opacity: 1;
         transition: opacity 0.3s;
     }
+    :host.show {
+        opacity: 1;
+    }
     :host.hide {
         opacity: 0;
     }
@@ -39,6 +42,8 @@ export class ProgressComponent implements OnInit, OnChanges {
 
     if (this.hideOnCompletion && this._percent === 100)
       this.elementRef.nativeElement.className = 'hide';
+    else
+      this.elementRef.nativeElement.className = 'show';
   }
 
   @Input() hideOnCompletion: boolean = true;

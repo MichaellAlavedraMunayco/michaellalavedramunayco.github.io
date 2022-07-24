@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
     "@angular/service-worker": "~9.0.7",
-    "@michaelldev/ngx-profile-avatar": "^2.0.0",
+    "@michaelldev/ngx-profile-avatar": "^3.0.0",
     "angular-svg-icon": "^9.2.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

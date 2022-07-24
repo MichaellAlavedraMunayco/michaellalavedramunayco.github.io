@@ -2,36 +2,15 @@ import { ElementRef } from '@angular/core';
 
 export type PagePath = 'overview' | 'projects' | 'certifications';
 export type PageEvent = 'previous' | 'next';
-export type PageParams = { url?: string, scrollRef?: number, deltaY?: number, key?: string };
+export type PageParams = { pageEvent?: PageEvent, url?: string };
 
 
 export class PageComponent {
 
   constructor(private elementRef: ElementRef<HTMLElement>) { }
 
-  getBoundingClientRect() {
-    return this.elementRef.nativeElement.getBoundingClientRect();
-  }
-
   scrollIntoView() {
     this.elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  }
-
-
-  moveToFirst() {
-    const node = this.elementRef.nativeElement;
-    const parentNode = this.elementRef.nativeElement.parentNode;
-
-    parentNode.removeChild(node);
-    parentNode.prepend(node);
-  }
-
-  moveToLast() {
-    const node = this.elementRef.nativeElement;
-    const parentNode = this.elementRef.nativeElement.parentNode;
-
-    parentNode.removeChild(node);
-    parentNode.append(node);
   }
 
 }
@@ -39,10 +18,9 @@ export class PageComponent {
 export class PageController {
 
   page: Page;
-  private event: PageEvent = 'previous';
-  private stack: Page[] = [];
+  event: PageEvent;
 
-  lastScrollRef: number = 0;
+  private stack: Page[] = [];
 
   constructor() { }
 
@@ -58,74 +36,24 @@ export class PageController {
     this.stack = stack;
   }
 
-  toPath(url: string): PagePath {
-    const path = url.replace('/', '');
-    return ['projects', 'certifications'].includes(path)
-      ? path as PagePath
-      : 'overview';
-  }
+  getPage({ pageEvent, url }: PageParams) {
 
-  getPageFromEvent(event: PageEvent) {
-    return {
-      ['previous']: this.page.previous,
-      ['next']: this.page.next,
-    }[event];
-  }
-
-  findPage({ url, scrollRef }: PageParams): Page {
     if (url) {
-      const path = this.toPath(url);
+      const path = new PageURL(url).toPath();
       return this.stack.find(page => page.path === path);
     }
-    if (scrollRef)
-      return this.stack.find(page => page.scrollRef === scrollRef);
-  }
 
-  getEventBy({ scrollRef, key, deltaY }: PageParams): PageEvent {
-
-    if (scrollRef)
-      return scrollRef > this.lastScrollRef ? 'next' : 'previous';
-
-    if (deltaY)
-      return deltaY > 0 ? 'next' : 'previous';
-
-    if (key)
-      return {
-        'ArrowDown': 'next',
-        'ArrowUp': 'previous'
-      }[key] as PageEvent;
+    if (pageEvent) {
+      return { 'previous': this.page.previous, 'next': this.page.next }[pageEvent];
+    }
   }
 
   navigate() {
 
     if (!this.page) return;
 
-    this.updatePagesOrder();
-
     this.page.setTitle();
     this.page.scrollIntoView();
-  }
-
-  updatePagesOrder() {
-
-    if (!this.event) return;
-
-    if (this.event === 'previous') {
-
-      const lastPage = this.stack.pop();
-      this.stack.unshift(lastPage);
-
-      lastPage.component.moveToFirst();
-    }
-
-    if (this.event === 'next') {
-
-      const firstPage = this.stack.shift();
-      this.stack.push(firstPage);
-
-      firstPage.component.moveToLast();
-    }
-
   }
 
 }
@@ -143,19 +71,9 @@ export class Page {
     this.path = path;
     this.title = title;
     this.component = component;
-    this.scrollRef = this.getScrollRef();
   }
 
-
-  getScrollRef(): number {
-    return this.component.getBoundingClientRect().y;
-  }
-
-  updateScrollRef() {
-    this.scrollRef = this.getScrollRef();
-  }
-
-  setSiblingPages(previous: Page, next: Page) {
+  siblings({ previous, next }: { previous: Page, next: Page }) {
     this.previous = previous;
     this.next = next;
   }
@@ -167,4 +85,18 @@ export class Page {
   setTitle() {
     document.title = this.title;
   }
+}
+
+export class PageURL {
+
+  defaultPath: PagePath = 'overview';
+  allowedPaths: PagePath[] = ['projects', 'certifications'];
+
+  constructor(public url: string) { }
+
+  toPath(): PagePath {
+    const path = this.url.replace('/', '') as PagePath;
+    return this.allowedPaths.includes(path) ? path : this.defaultPath;
+  }
+
 }

@@ -25,12 +25,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   pageController: PageController = new PageController();
 
   routerSubscription: Subscription;
-  keySubscription: Subscription;
 
 
-  constructor(
-    private router: Router,
-  ) {
+  constructor(private router: Router) {
 
     this.routerSubscription = this.router.events
       .pipe(
@@ -39,32 +36,10 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       )
       .subscribe(({ url }) => {
 
-        const page = this.pageController.findPage({ url });
+        const page = this.pageController.getPage({ url });
 
         this.pageController.setPage(page);
         this.pageController.navigate();
-      });
-
-
-    this.keySubscription = merge(
-      fromEvent<KeyboardEvent>(document, 'keydown'),
-      fromEvent<KeyboardEvent>(document, 'keyup'),
-    )
-      .pipe(
-        debounceTime(100),
-        distinctUntilChanged(),
-        filter(({ key, repeat }) => ['ArrowDown', 'ArrowUp'].includes(key) && !repeat),
-      )
-      .subscribe(event => {
-
-        event.preventDefault();
-
-        const { key } = event;
-
-        const pageEvent = this.pageController.getEventBy({ key });
-
-        this.onGoToPage(pageEvent);
-
       });
   }
 
@@ -89,31 +64,37 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       component: this.certificationsPage,
     });
 
-    overviewPage.setSiblingPages(certificationsPage, projectsPage);
-    projectsPage.setSiblingPages(overviewPage, certificationsPage);
-    certificationsPage.setSiblingPages(projectsPage, overviewPage);
+    overviewPage.siblings({
+      'previous': certificationsPage,
+      'next': projectsPage,
+    });
+
+    projectsPage.siblings({
+      'previous': overviewPage,
+      'next': certificationsPage,
+    });
+
+    certificationsPage.siblings({
+      'previous': projectsPage,
+      'next': overviewPage,
+    });
 
     this.pageController.setPage(overviewPage);
 
-    this.pageController.setStack([
-      overviewPage,
-      projectsPage,
-      certificationsPage,
-    ]);
+    this.pageController.setStack([overviewPage, projectsPage, certificationsPage]);
   }
 
   onGoToPage(pageEvent: PageEvent) {
 
-    const page = this.pageController.getPageFromEvent(pageEvent);
-
     this.pageController.setEvent(pageEvent);
+
+    const page = this.pageController.getPage({ pageEvent });
 
     this.router.navigate([page.path]);
   }
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
-    this.keySubscription.unsubscribe();
   }
 
 }
