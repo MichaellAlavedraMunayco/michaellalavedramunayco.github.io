@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { Tracker } from '@michaelldev/ngx-profile-avatar/lib';
+import { me } from 'src/app/core/data/data';
+import { Me } from 'src/app/core/interfaces/portfolio';
 import { PageComponent } from 'src/app/core/models/page-component';
 
 @Component({
@@ -12,6 +14,7 @@ export class OverviewPageComponent extends PageComponent implements OnInit {
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
 
+  me: Me = me;
   avatarPercent: number = 0;
   avatarTracker: Tracker = 'cursor';
   // timeoutId: number;

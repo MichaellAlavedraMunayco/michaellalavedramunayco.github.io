@@ -3,15 +3,22 @@
   <div class="about-me--container">
 
     <div class="about-me--header">
+
       <p typography type="display" size="medium" color="white-70">Hi, I am</p>
-      <p typography type="display" size="extralarge" color="primary">Michael Alavedra</p>
-      <p typography type="display" size="large" color="white">Front-End Developer</p>
+
+      <p typography type="display" size="extralarge" color="primary">
+        {{ me.firstname }} {{ me.lastname }}
+      </p>
+
+      <p typography type="display" size="large" color="white">
+        {{ me.headline }}
+      </p>
+
     </div>
 
     <div class="about-me--body">
       <p typography type="display" size="small" color="white-50">
-        I love to develop innovative and world-class software solutions, motivated by the art of UI/UX Design
-        and Programming.
+        {{ me.bio }}
       </p>
     </div>
 
@@ -31,7 +38,7 @@
     <ui-progress [percent]="avatarPercent"></ui-progress>
   </div>
 
-  <ngx-profile-avatar url="assets/3d/michaell.glb" [tracker]="avatarTracker" (loading)="onLoadingAvatar($event)">
+  <ngx-profile-avatar [url]="me.avatar3D" [tracker]="avatarTracker" (loading)="onLoadingAvatar($event)">
   </ngx-profile-avatar>
 
   <div class="avatar--control">
