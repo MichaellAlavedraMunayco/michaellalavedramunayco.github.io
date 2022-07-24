@@ -45,6 +45,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "statsJson": true,
               "budgets": [
                 {
                   "type": "initial",
