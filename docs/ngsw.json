@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1658623849499,
+  "timestamp": 1658625459801,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -10,14 +10,14 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main-es2015.8c4a7790b4dce5515348.js",
-        "/main-es5.8c4a7790b4dce5515348.js",
+        "/main-es2015.34bb760dc0551c894ed6.js",
+        "/main-es5.34bb760dc0551c894ed6.js",
         "/manifest.webmanifest",
         "/polyfills-es2015.4482f49eb844a7222ac2.js",
         "/polyfills-es5.308a32594ec7e9852c1e.js",
         "/runtime-es2015.0811dcefd377500b5b1a.js",
         "/runtime-es5.0811dcefd377500b5b1a.js",
-        "/styles.c28f59e525c5bae77599.css"
+        "/styles.409d707d09910e631eb1.css"
       ],
       "patterns": []
     },
@@ -44,16 +44,6 @@
         "/assets/fonts/FamiljenGrotesk/FamiljenGrotesk-SemiBold.ttf",
         "/assets/fonts/FamiljenGrotesk/FamiljenGrotesk-SemiBoldItalic.ttf",
         "/assets/fonts/FamiljenGrotesk/familjen-grotesk.font-face.css",
-        "/assets/fonts/Inter/Inter-Black.ttf",
-        "/assets/fonts/Inter/Inter-Bold.ttf",
-        "/assets/fonts/Inter/Inter-ExtraBold.ttf",
-        "/assets/fonts/Inter/Inter-ExtraLight.ttf",
-        "/assets/fonts/Inter/Inter-Light.ttf",
-        "/assets/fonts/Inter/Inter-Medium.ttf",
-        "/assets/fonts/Inter/Inter-Regular.ttf",
-        "/assets/fonts/Inter/Inter-SemiBold.ttf",
-        "/assets/fonts/Inter/Inter-Thin.ttf",
-        "/assets/fonts/Inter/inter.font-face.css",
         "/assets/icons/icon-128x128.png",
         "/assets/icons/icon-144x144.png",
         "/assets/icons/icon-152x152.png",
@@ -94,16 +84,6 @@
     "/assets/fonts/FamiljenGrotesk/FamiljenGrotesk-SemiBold.ttf": "4468aca3d593c81bb934807157d5d02bf8a9306c",
     "/assets/fonts/FamiljenGrotesk/FamiljenGrotesk-SemiBoldItalic.ttf": "a42c2b5023da168a70308f2e4e44c4f4f366b35f",
     "/assets/fonts/FamiljenGrotesk/familjen-grotesk.font-face.css": "2c1759d1693befde6da6105fb95375834bdc3729",
-    "/assets/fonts/Inter/Inter-Black.ttf": "283fa65b96dc1f2d71c6504afb9610447bdcdf1b",
-    "/assets/fonts/Inter/Inter-Bold.ttf": "48747b7a60086f97af0d373febcbd1f1bee87f17",
-    "/assets/fonts/Inter/Inter-ExtraBold.ttf": "bff772be6bca9895c6fdcd57e5d5be9a47f2e058",
-    "/assets/fonts/Inter/Inter-ExtraLight.ttf": "421072aef8610cb0f79661b494442a4b9363b43f",
-    "/assets/fonts/Inter/Inter-Light.ttf": "dd9ec1ae67dd85143bacf7a3cb37e9f0ac979843",
-    "/assets/fonts/Inter/Inter-Medium.ttf": "a418a8ba73bbcfa8c131c426ab836d78457afa9b",
-    "/assets/fonts/Inter/Inter-Regular.ttf": "7237d9cf55f177702066a28a4dde1e4c7e8ab576",
-    "/assets/fonts/Inter/Inter-SemiBold.ttf": "431007da316de60d85174aeec9b8389b5c73e7d6",
-    "/assets/fonts/Inter/Inter-Thin.ttf": "297919d59c9ba4fa17251cdb9f06c26ca906e593",
-    "/assets/fonts/Inter/inter.font-face.css": "29b57a38c0fcc6e623c199a72cc71efda3be29ad",
     "/assets/icons/icon-128x128.png": "2df792fc000bc4a63568ae624b89bb270a817a0d",
     "/assets/icons/icon-144x144.png": "5e5efdecde2a43cf5d1b5f01ad49957229b4ff17",
     "/assets/icons/icon-152x152.png": "3ccadff7ab2982389973284d5417719d8fc78d92",
@@ -119,9 +99,9 @@
     "/assets/styles/normalize.less": "5ff0484ffa4603d86fb38bd0ae15453f3346fdd9",
     "/assets/styles/reset.less": "259af749e8c8df84c44b4a970fdc014cb0350715",
     "/favicon.ico": "df18ebf5de21a2ce1ac18ac348f549323cb3c7b6",
-    "/index.html": "591770fb2b233a3db255fb054eed334616327516",
-    "/main-es2015.8c4a7790b4dce5515348.js": "b00aa70de2549b40435ced7681f8c6f07580d1a5",
-    "/main-es5.8c4a7790b4dce5515348.js": "1654da59226701ce755bdb6c626a78432fdcb8e3",
+    "/index.html": "4e7969de800719443f9fbb15d80137bed0faaa38",
+    "/main-es2015.34bb760dc0551c894ed6.js": "8e5a29d11cf81ea5126759b42b752a03c6daf27e",
+    "/main-es5.34bb760dc0551c894ed6.js": "c0c333d490d67469d554713d96da2cda13d063c4",
     "/manifest.webmanifest": "02faabec7dbcc815dc237441e3cfb6bf924e36dc",
     "/pattern.desktop.277729fbdfaaefe1252a.svg": "421e208d37abbe5657fce615de276be889663305",
     "/pattern.mobile.52c71c28f5e8b8ff73c9.svg": "380fa13266b5f6e2c1acf69108ab27b46ff48f68",
@@ -129,7 +109,7 @@
     "/polyfills-es5.308a32594ec7e9852c1e.js": "d2c47a85e5d3c5418da475ae970e681eedb506df",
     "/runtime-es2015.0811dcefd377500b5b1a.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "/runtime-es5.0811dcefd377500b5b1a.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/styles.c28f59e525c5bae77599.css": "1f56383fa7303a269771886e0daeba33e29d060a"
+    "/styles.409d707d09910e631eb1.css": "50bbbeab2c6ad86bc94fb7483ea5b78ea8829eed"
   },
   "navigationUrls": [
     {
