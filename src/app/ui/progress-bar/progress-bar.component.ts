@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'ui-progress',
+  selector: 'ui-progress-bar',
   template: `
     <div class="progress" [style]="'width:' + _percent + '%'"></div>`,
   styles: [`
@@ -31,7 +31,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRe
     }`],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProgressComponent implements OnInit, OnChanges {
+export class ProgressBarComponent implements OnInit, OnChanges {
 
   @Input() set percent(percent: number) {
 

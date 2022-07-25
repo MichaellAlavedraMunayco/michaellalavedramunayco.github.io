@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 // Component
 import { CursorComponent } from './cursor/cursor.component';
 import { TypographyDirective } from './typography/typography.directive';
-import { ProgressComponent } from './progress/progress.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ButtonComponent } from './button/button.component';
 
 
@@ -19,14 +19,14 @@ import { ButtonComponent } from './button/button.component';
   ],
   declarations: [
     CursorComponent,
-    ProgressComponent,
     TypographyDirective,
+    ProgressBarComponent,
     ButtonComponent,
   ],
   exports: [
     CursorComponent,
-    ProgressComponent,
     TypographyDirective,
+    ProgressBarComponent,
     ButtonComponent,
   ],
   providers: [

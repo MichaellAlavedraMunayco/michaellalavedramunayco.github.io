@@ -35,7 +35,7 @@
 <div class="avatar--layout">
 
   <div class="progress--container">
-    <ui-progress [percent]="avatarPercent"></ui-progress>
+    <ui-progress-bar [percent]="avatarPercent"> </ui-progress-bar>
   </div>
 
   <ngx-profile-avatar [url]="me.avatar3D" [tracker]="avatarTracker" (loading)="onLoadingAvatar($event)">
