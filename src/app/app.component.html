@@ -1,8 +1,9 @@
-<app-overview-page class="page" (previousPage)="onGoToPage('previous')" (nextPage)="onGoToPage('next')">
+<app-overview-page class="page" (previousPage)="navigator.goToPreviousPage()" (nextPage)="navigator.goToNextPage()">
 </app-overview-page>
 
-<app-projects-page class="page" (previousPage)="onGoToPage('previous')" (nextPage)="onGoToPage('next')">
+<app-projects-page class="page" (previousPage)="navigator.goToPreviousPage()" (nextPage)="navigator.goToNextPage()">
 </app-projects-page>
 
-<app-certifications-page class="page" (previousPage)="onGoToPage('previous')" (nextPage)="onGoToPage('next')">
+<app-certifications-page class="page" (previousPage)="navigator.goToPreviousPage()"
+  (nextPage)="navigator.goToNextPage()">
 </app-certifications-page>

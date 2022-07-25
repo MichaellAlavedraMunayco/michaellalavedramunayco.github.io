@@ -1,14 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-// rxjs
-import { fromEvent, merge, Subscription } from 'rxjs';
-import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
+// services
+import { NavigationService, Page, PageStack } from './core/services/navigation.service';
 // components
 import { CertificationsPageComponent } from './pages/certifications-page/certifications-page.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { ProjectsPageComponent } from './pages/projects-page/projects-page.component';
 // models
-import { Page, PageController, PageEvent } from './core/models/page-component';
 
 
 @Component({
@@ -22,27 +19,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild(ProjectsPageComponent) projectsPage: ProjectsPageComponent;
   @ViewChild(CertificationsPageComponent) certificationsPage: CertificationsPageComponent;
 
-  pageController: PageController = new PageController();
 
-  routerSubscription: Subscription;
-
-
-  constructor(private router: Router) {
-
-    this.routerSubscription = this.router.events
-      .pipe(
-        distinct(),
-        filter<NavigationEnd>(event => event instanceof NavigationEnd),
-      )
-      .subscribe(({ url }) => {
-
-        const page = this.pageController.getPage({ url });
-
-        this.pageController.setPage(page);
-        this.pageController.navigate();
-      });
-  }
-
+  constructor(public navigator: NavigationService) { }
 
   ngAfterViewInit(): void {
 
@@ -65,36 +43,29 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     });
 
     overviewPage.siblings({
-      'previous': certificationsPage,
-      'next': projectsPage,
+      previous: certificationsPage,
+      next: projectsPage,
     });
 
     projectsPage.siblings({
-      'previous': overviewPage,
-      'next': certificationsPage,
+      previous: overviewPage,
+      next: certificationsPage,
     });
 
     certificationsPage.siblings({
-      'previous': projectsPage,
-      'next': overviewPage,
+      previous: projectsPage,
+      next: overviewPage,
     });
 
-    this.pageController.setPage(overviewPage);
-
-    this.pageController.setStack([overviewPage, projectsPage, certificationsPage]);
-  }
-
-  onGoToPage(pageEvent: PageEvent) {
-
-    this.pageController.setEvent(pageEvent);
-
-    const page = this.pageController.getPage({ pageEvent });
-
-    this.router.navigate([page.path]);
+    this.navigator
+      .setStack(new PageStack()
+        .start(overviewPage)
+        .add(projectsPage)
+        .end(certificationsPage));
   }
 
   ngOnDestroy(): void {
-    this.routerSubscription.unsubscribe();
+    this.navigator.unsubscribe();
   }
 
 }

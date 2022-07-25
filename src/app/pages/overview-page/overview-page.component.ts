@@ -2,14 +2,14 @@ import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/co
 import { Tracker } from '@michaelldev/ngx-profile-avatar/lib';
 import { me } from 'src/app/core/data/data';
 import { Me } from 'src/app/core/interfaces/portfolio';
-import { PageComponent } from 'src/app/core/models/page-component';
+import { NavigationComponent } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-overview-page',
   templateUrl: './overview-page.component.html',
   styleUrls: ['./overview-page.component.less'],
 })
-export class OverviewPageComponent extends PageComponent implements OnInit {
+export class OverviewPageComponent extends NavigationComponent implements OnInit {
 
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();

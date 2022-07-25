@@ -1,12 +1,12 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
-import { PageComponent } from 'src/app/core/models/page-component';
+import { NavigationComponent } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-certifications-page',
   templateUrl: './certifications-page.component.html',
   styleUrls: ['./certifications-page.component.less']
 })
-export class CertificationsPageComponent extends PageComponent implements OnInit {
+export class CertificationsPageComponent extends NavigationComponent implements OnInit {
 
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();

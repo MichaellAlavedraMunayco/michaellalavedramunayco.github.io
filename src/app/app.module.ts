@@ -12,6 +12,8 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AppRoutingModule } from './app.routing';
 // Modules
 import { UiModule } from './ui/ui.module';
+// Services
+import { NavigationService } from './core/services/navigation.service';
 // Components
 import { AppComponent } from './app.component';
 // Child Components
@@ -37,7 +39,9 @@ import { CertificationsPageComponent } from './pages/certifications-page/certifi
     ProjectsPageComponent,
     CertificationsPageComponent,
   ],
-  providers: [],
+  providers: [
+    NavigationService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
