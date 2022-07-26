@@ -3,6 +3,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit, ViewC
 
 type ButtonType = 'primary' | 'secondary';
 type ButtonSize = 'small' | 'medium';
+type ButtonMode = 'icon-only' | 'icon-none';
+type ButtonStatus = 'active' | 'default';
 
 @Component({
   selector: 'ui-button',
@@ -15,21 +17,33 @@ type ButtonSize = 'small' | 'medium';
         display: flex;
         justify-content: center;
         align-items: center;
-        aspect-ratio: 1;
-        border-radius: 50%;
         border: 0px;
         color: var(--white);
         fill: var(--white);
         outline: none;
         transition: background-color 0.3s;
     }
-    button.small {
+    button.small.icon-only {
+        border-radius: 50%;
         width: 48px;
         height: 48px;
     }
-    button.medium {
+    button.medium.icon-only {
+        border-radius: 50%;
         width: 64px;
         height: 64px;
+    }
+    button.small.icon-none {
+        border-radius: 12px;
+        width: fit-content;
+        height: 48px;
+        padding: 0 20px;
+    }
+    button.medium.icon-none {
+        border-radius: 12px;
+        width: fit-content;
+        height: 64px;
+        padding: 0 24px;
     }
     button.primary {
         background-color: var(--white-10);
@@ -37,6 +51,8 @@ type ButtonSize = 'small' | 'medium';
     button.secondary {
         background-color: transparent;
     }
+    button.active,
+    button:focus,
     button:hover {
         background-color: var(--white-30);
     }`],
@@ -46,6 +62,8 @@ export class ButtonComponent implements OnInit, AfterViewInit {
 
   @Input() type: ButtonType = 'primary';
   @Input() size: ButtonSize = 'medium';
+  @Input() mode: ButtonMode = 'icon-none';
+  @Input() status: ButtonStatus = 'default';
 
   @ViewChild('button') button: ElementRef<HTMLButtonElement>;
 
@@ -54,7 +72,16 @@ export class ButtonComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void { }
 
+  ngOnChanges(): void {
+    this.applyChanges();
+  }
+
   ngAfterViewInit(): void {
-    this.button.nativeElement.className = `${this.type} ${this.size}`;
+    this.applyChanges();
+  }
+
+  applyChanges() {
+    if (this.button)
+      this.button.nativeElement.className = `${this.type} ${this.size} ${this.mode} ${this.status}`;
   }
 }
