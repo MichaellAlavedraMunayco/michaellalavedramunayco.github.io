@@ -1,43 +1,46 @@
 @import url("./../../../assets/styles/breakpoint.less");
 
-div.info--layout {
+div.personal--layout {
   position: absolute;
   inset: 0;
   z-index: 1;
-  padding-left: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   max-width: 55%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 72px;
 
   @media @mobile {
     max-width: unset;
     top: unset;
     align-items: center;
     justify-content: space-between;
-    padding: 0 5% 12% 5%;
+    padding: 0 5%;
     height: 45%;
     z-index: 2;
   }
 }
 
-div.navigation-buttons {
+// social links
+
+div.links--container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
+  flex-direction: column;
+  gap: 20px;
 
   @media @mobile {
-    gap: 20px;
+    position: fixed;
+    inset: 5%;
+    left: unset;
   }
 }
+
+// about-me
 
 div.about-me--container {
   display: flex;
   flex-direction: column;
   gap: 48px;
-  padding-bottom: 8%;
 
   @media @mobile {
     gap: 20px;
@@ -61,6 +64,20 @@ div.about-me--body {
     max-width: unset;
   }
 }
+
+// navigation buttons
+
+div.navigation-buttons {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  @media @mobile {
+    gap: 20px;
+  }
+}
+
+// Avatar 3D
 
 div.avatar--layout {
   position: absolute;
@@ -101,4 +118,8 @@ div.avatar--control {
   inset: 5%;
   left: unset;
   bottom: unset;
+
+  @media @mobile {
+    display: none;
+  }
 }

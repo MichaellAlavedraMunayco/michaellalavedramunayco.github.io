@@ -1,4 +1,32 @@
-<div class="info--layout">
+<div class="personal--layout">
+
+  <div class="links--container">
+
+    <ui-button type="primary" size="small" mode="icon-only" (click)="showFacebookEmbed = true">
+      <svg-icon name="facebook"></svg-icon>
+    </ui-button>
+
+    <ui-button type="primary" size="small" mode="icon-only" (click)="showFacebookEmbed = true">
+      <svg-icon name="linkedin"></svg-icon>
+    </ui-button>
+
+    <ui-button type="primary" size="small" mode="icon-only" (click)="showFacebookEmbed = true">
+      <svg-icon name="github"></svg-icon>
+    </ui-button>
+
+    <ui-button type="primary" size="small" mode="icon-only" (click)="showFacebookEmbed = true">
+      <svg-icon name="instagram"></svg-icon>
+    </ui-button>
+
+    <ui-button type="primary" size="small" mode="icon-only" (click)="showFacebookEmbed = true">
+      <svg-icon name="twitter"></svg-icon>
+    </ui-button>
+
+    <ui-button type="primary" size="small" mode="icon-only" (click)="showFacebookEmbed = true">
+      <svg-icon name="whatsapp"></svg-icon>
+    </ui-button>
+
+  </div>
 
   <div class="about-me--container">
 
@@ -22,17 +50,17 @@
       </p>
     </div>
 
-  </div>
+    <div class="navigation-buttons">
 
-  <div class="navigation-buttons">
+      <ui-button type="primary" size="small" (click)="navigator.goToPage('projects')">
+        <p typography type="display" size="extrasmall" color="white">Projects</p>
+      </ui-button>
 
-    <ui-button type="primary" size="small" (click)="navigator.goToPage('projects')">
-      <p typography type="display" size="extrasmall" color="white">Projects</p>
-    </ui-button>
+      <ui-button type="primary" size="small" (click)="navigator.goToPage('certifications')">
+        <p typography type="display" size="extrasmall" color="white">Certifications</p>
+      </ui-button>
 
-    <ui-button type="primary" size="small" (click)="navigator.goToPage('certifications')">
-      <p typography type="display" size="extrasmall" color="white">Certifications</p>
-    </ui-button>
+    </div>
 
   </div>
 

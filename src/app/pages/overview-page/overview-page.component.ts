@@ -17,7 +17,9 @@ export class OverviewPageComponent extends NavigationComponent implements OnInit
   me: Me = me;
   avatarPercent: number = 0;
   avatarTracker: Tracker = 'cursor';
-  // timeoutId: number;
+
+  showFacebookEmbed: boolean = false;
+
 
   constructor(
     elementRef: ElementRef<HTMLElement>,
@@ -26,17 +28,7 @@ export class OverviewPageComponent extends NavigationComponent implements OnInit
     super(elementRef);
   }
 
-  ngOnInit(): void {
-    // const self = this;
-    // (function load() {
-    //   if (self.loadPercent === 100) {
-    //     window.clearTimeout(self.timeoutId);
-    //     return;
-    //   }
-    //   self.loadPercent++;
-    //   self.timeoutId = window.setTimeout(load, 10);
-    // })();
-  }
+  ngOnInit(): void { }
 
   onLoadingAvatar({ loaded, total }: ProgressEvent) {
     this.avatarPercent = loaded / total * 100;
