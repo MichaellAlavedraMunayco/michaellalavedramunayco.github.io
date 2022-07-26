@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { Tracker } from '@michaelldev/ngx-profile-avatar/lib';
-import { me } from 'src/app/core/data/data';
+import { data } from 'src/app/core/data/data';
 import { Me } from 'src/app/core/interfaces/portfolio';
 import { NavigationComponent, NavigationService } from 'src/app/core/services/navigation.service';
 
@@ -14,11 +14,9 @@ export class OverviewPageComponent extends NavigationComponent implements OnInit
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
 
-  me: Me = me;
+  me: Me = data;
   avatarPercent: number = 0;
   avatarTracker: Tracker = 'cursor';
-
-  showFacebookEmbed: boolean = false;
 
 
   constructor(

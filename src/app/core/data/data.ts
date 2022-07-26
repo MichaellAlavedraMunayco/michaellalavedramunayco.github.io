@@ -1,31 +1,29 @@
 import { LinkProvider, Me } from '../interfaces/portfolio';
 
-export const me: Me = {
+export const data: Me = {
   firstname: 'Michaell',
   lastname: 'Alavedra',
   headline: 'Front-End Developer',
   bio: 'I love to develop innovative and world-class software solutions, motivated by the art of UI/UX Design and Programming.',
   avatar3D: 'assets/3d/michaell.glb',
-  links: [
-    {
-      provider: LinkProvider.Linkedin,
-      url: '',
+  links: {
+    [LinkProvider.Facebook]: {
+      url: 'https://www.facebook.com/michaell.alavedra',
     },
-    {
-      provider: LinkProvider.Github,
-      url: '',
+    [LinkProvider.Linkedin]: {
+      url: 'https://www.linkedin.com/in/michaell-alavedra',
     },
-    {
-      provider: LinkProvider.Gmail,
-      url: '',
+    [LinkProvider.Github]: {
+      url: 'https://github.com/michaellAlavedraMunayco/',
     },
-    {
-      provider: LinkProvider.Youtube,
-      url: '',
+    [LinkProvider.Instagram]: {
+      url: 'https://www.instagram.com/f.michaell.a.m/',
     },
-    {
-      provider: LinkProvider.Whatsapp,
-      url: '',
+    [LinkProvider.Twitter]: {
+      url: 'https://twitter.com/michaelldev',
     },
-  ]
+    [LinkProvider.Whatsapp]: {
+      url: 'https://wa.me/59177824436?text=Hola%20Michaell!%20Vengo%20de%20tu%20sitio%20web',
+    },
+  }
 }

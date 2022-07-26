@@ -4,12 +4,11 @@ export interface Me {
   headline?: string;
   bio?: string;
   avatar3D?: string;
-  links?: Link[];
+  links?: Record<string, Link>;
 }
 
 export interface Link {
   url: string;
-  provider: LinkProvider;
 }
 
 export const enum LinkProvider {

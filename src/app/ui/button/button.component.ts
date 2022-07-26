@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, AfterViewInit, ViewC
 
 type ButtonType = 'primary' | 'secondary';
 type ButtonSize = 'small' | 'medium';
-type ButtonMode = 'icon-only' | 'icon-none';
+type ButtonMode = 'icon-link' | 'icon-only' | 'icon-none';
 type ButtonStatus = 'active' | 'default';
 
 @Component({
@@ -23,11 +23,16 @@ type ButtonStatus = 'active' | 'default';
         outline: none;
         transition: background-color 0.3s;
     }
+    button.icon-link {
+      cursor: pointer;
+    }
+    button.small.icon-link,
     button.small.icon-only {
         border-radius: 50%;
         width: 48px;
         height: 48px;
     }
+    button.medium.icon-link,
     button.medium.icon-only {
         border-radius: 50%;
         width: 64px;

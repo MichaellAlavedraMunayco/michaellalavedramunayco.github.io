@@ -78,6 +78,10 @@ export class NavigationService {
     this.setCurrentPage(this.currentPage.next);
     this.router.navigate([this.currentPage.path]);
   }
+
+  goToURL(url: string) {
+    window.open(url, '_blank');
+  }
 }
 
 export const enum NavigationEvent {
