@@ -24,10 +24,16 @@
 
   </div>
 
-  <div class="navigation-button">
-    <ui-button type="secondary" size="small" (click)="nextPage.next()">
-      <svg-icon name="arrow-down"></svg-icon>
+  <div class="navigation-buttons">
+
+    <ui-button type="primary" size="small" (click)="navigator.goToPage('projects')">
+      <p typography type="display" size="extrasmall" color="white">Projects</p>
     </ui-button>
+
+    <ui-button type="primary" size="small" (click)="navigator.goToPage('certifications')">
+      <p typography type="display" size="extrasmall" color="white">Certifications</p>
+    </ui-button>
+
   </div>
 
 </div>
@@ -38,7 +44,8 @@
     <ui-progress-bar [percent]="avatarPercent"> </ui-progress-bar>
   </div>
 
-  <ngx-profile-avatar [url]="me.avatar3D" [tracker]="avatarTracker" (loading)="onLoadingAvatar($event)">
+  <ngx-profile-avatar [url]="me.avatar3D" [tracker]="avatarTracker" [enableZoom]="false"
+    (loading)="onLoadingAvatar($event)">
   </ngx-profile-avatar>
 
   <div class="avatar--control">

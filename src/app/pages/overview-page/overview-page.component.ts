@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/co
 import { Tracker } from '@michaelldev/ngx-profile-avatar/lib';
 import { me } from 'src/app/core/data/data';
 import { Me } from 'src/app/core/interfaces/portfolio';
-import { NavigationComponent } from 'src/app/core/services/navigation.service';
+import { NavigationComponent, NavigationService } from 'src/app/core/services/navigation.service';
 
 @Component({
   selector: 'app-overview-page',
@@ -19,7 +19,10 @@ export class OverviewPageComponent extends NavigationComponent implements OnInit
   avatarTracker: Tracker = 'cursor';
   // timeoutId: number;
 
-  constructor(elementRef: ElementRef<HTMLElement>) {
+  constructor(
+    elementRef: ElementRef<HTMLElement>,
+    public navigator: NavigationService,
+  ) {
     super(elementRef);
   }
 

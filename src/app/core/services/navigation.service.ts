@@ -59,6 +59,16 @@ export class NavigationService {
     this.currentPage.scrollIntoView();
   }
 
+  goToPage(pathName: string) {
+
+    const page = this.searchPageBy({ pathName });
+
+    if (!page) throw new Error('Invalid path');
+
+    this.setCurrentPage(page);
+    this.router.navigate([page.path]);
+  }
+
   goToPreviousPage() {
     this.setCurrentPage(this.currentPage.previous);
     this.router.navigate([this.currentPage.path]);
@@ -83,7 +93,9 @@ export interface PageQueryParams {
 
 export class NavigationComponent {
 
-  constructor(private elementRef: ElementRef<HTMLElement>) { }
+  constructor(
+    private elementRef: ElementRef<HTMLElement>,
+  ) { }
 
   scrollIntoView() {
     this.elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
