@@ -46,6 +46,7 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
   overflow: hidden;
+  padding: 0 20px;
 
   @media @mobile {
     background-image: url("assets/images/pattern.mobile.svg"),
@@ -68,4 +69,32 @@ body {
         var(--primary-dark) 100%
       );
   }
+}
+
+// Scroll
+
+*::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track-piece {
+  background: var(--white-50);
+  border-radius: 2px;
+  margin: 24vh;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--white);
+  border-radius: 2px;
+}
+
+*::-webkit-scrollbar-corner,
+*::-webkit-resizer,
+*::-webkit-scrollbar-button {
+  display: none;
 }

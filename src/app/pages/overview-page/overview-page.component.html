@@ -51,13 +51,13 @@
   <div class="avatar--control">
 
     <ng-container *ngIf="avatarTracker === 'face'">
-      <ui-button type="primary" size="small" (click)="avatarTracker = 'cursor'">
+      <ui-button type="primary" size="small" mode="icon-only" (click)="avatarTracker = 'cursor'">
         <svg-icon name="pointer"></svg-icon>
       </ui-button>
     </ng-container>
 
     <ng-container *ngIf="avatarTracker === 'cursor'">
-      <ui-button type="primary" size="small" (click)="avatarTracker = 'face'">
+      <ui-button type="primary" size="small" mode="icon-only" (click)="avatarTracker = 'face'">
         <svg-icon name="record"></svg-icon>
       </ui-button>
     </ng-container>
