@@ -1,7 +1,7 @@
 @import url("./../../../assets/styles/breakpoint.less");
 
 :host {
-  width: 70% !important;
+  width: 55% !important;
   margin: auto;
 }
 
@@ -9,11 +9,43 @@ div.project--header {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 32px 0;
+  padding: 24px 0 20px 0;
 }
 
 div.project--tab-set {
   display: flex;
   flex-direction: row;
   gap: 12px;
+}
+
+video {
+  width: 100%;
+}
+
+div.project--footer {
+  display: flex;
+  gap: 32px;
+}
+
+div.project--footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+div.project--footer-tags {
+  display: flex;
+  gap: 8px;
+}
+
+div.project--footer-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+div.project--footer-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
