@@ -13,6 +13,9 @@ type ButtonStatus = 'active' | 'default';
     	<ng-content></ng-content>
     </button>`,
   styles: [`
+  :host {
+    width: fit-content;
+  }
     button {
         display: flex;
         justify-content: center;
