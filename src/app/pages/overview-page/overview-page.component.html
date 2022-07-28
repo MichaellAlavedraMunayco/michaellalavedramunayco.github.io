@@ -30,24 +30,28 @@
 
   <div class="about-me--container">
 
-    <div class="about-me--header">
+    <div class="about-me--content">
 
-      <p typography type="display" size="medium" color="white-70">Hi, I am</p>
+      <div class="about-me--header">
 
-      <p typography type="display" size="extralarge" color="primary">
-        {{ me.firstname }} {{ me.lastname }}
-      </p>
+        <p typography type="display" size="medium" color="white-70">Hello, I am</p>
 
-      <p typography type="display" size="large" color="white">
-        {{ me.headline }}
-      </p>
+        <p typography type="display" size="extralarge" color="primary">
+          {{ me.firstname }} {{ me.lastname }}
+        </p>
 
-    </div>
+        <p typography type="display" size="large" color="white">
+          {{ me.headline }}
+        </p>
 
-    <div class="about-me--body">
-      <p typography type="display" size="small" color="white-50">
-        {{ me.bio }}
-      </p>
+      </div>
+
+      <div class="about-me--body">
+        <p typography type="display" size="small" color="white-50">
+          {{ me.bio }}
+        </p>
+      </div>
+
     </div>
 
     <div class="navigation-buttons">

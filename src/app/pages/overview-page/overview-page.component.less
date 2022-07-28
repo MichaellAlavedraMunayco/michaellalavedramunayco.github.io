@@ -13,10 +13,10 @@ div.personal--layout {
   @media @mobile {
     max-width: unset;
     top: unset;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    height: 45%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0 5% 10% 5%;
+    height: 40%;
     z-index: 2;
   }
 }
@@ -32,12 +32,25 @@ div.links--container {
     position: fixed;
     inset: 5%;
     left: unset;
+    bottom: unset;
   }
 }
 
 // about-me
 
 div.about-me--container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  @media @mobile {
+    height: 100%;
+    justify-content: space-between;
+    gap: unset;
+  }
+}
+
+div.about-me--content {
   display: flex;
   flex-direction: column;
   gap: 48px;
