@@ -1,4 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 type FontType = 'display' | 'text';
 type FontSize = 'extrasmall' | 'small' | 'medium' | 'large' | 'extralarge';
@@ -11,14 +13,34 @@ export class TypographyDirective implements AfterViewInit {
   @Input('type') type: FontType = 'text';
   @Input('size') size: FontSize = 'small';
   @Input('color') color: string = 'black';
+  @Input('hoverable') hoverable: boolean = false;
 
   private sizeBase: number = 16;
 
-  constructor(private reference: ElementRef<HTMLElement>) { }
+  constructor(private hostRef: ElementRef<HTMLElement>) {
+
+    fromEvent(this.hostRef.nativeElement, 'mouseenter')
+      .pipe(distinctUntilChanged())
+      .subscribe(() => {
+        if (this.hoverable)
+          this.hostRef.nativeElement.style.textDecoration = 'underline';
+      });
+
+    fromEvent(this.hostRef.nativeElement, 'mouseleave')
+      .pipe(distinctUntilChanged())
+      .subscribe(() => {
+        if (this.hoverable)
+          this.hostRef.nativeElement.style.textDecoration = 'unset';
+      });
+  }
 
   ngAfterViewInit() {
-    this.reference.nativeElement.style.fontSize = this.fontSize;
-    this.reference.nativeElement.style.color = this.fontColor;
+
+    this.hostRef.nativeElement.style.fontSize = this.fontSize;
+    this.hostRef.nativeElement.style.color = this.fontColor;
+    this.hostRef.nativeElement.style.transition = 'color 0.3s';
+    this.hostRef.nativeElement.style.cursor = this.hoverable ? 'default' : 'unset';
+
   }
 
   get fontSize() {
