@@ -1,25 +1,32 @@
 @import url("./../../../assets/styles/breakpoint.less");
 
 :host {
+  display: flex;
+}
+
+div.project--page {
   width: 55% !important;
+  height: 95% !important;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
 }
 
 div.project--header {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 24px 0 20px 0;
-}
-
-div.project--tab-set {
   display: flex;
   flex-direction: row;
   gap: 12px;
 }
 
+div.project--body {
+  flex-grow: 1;
+}
+
 video {
   width: 100%;
+  height: 100%;
 }
 
 div.project--footer {
