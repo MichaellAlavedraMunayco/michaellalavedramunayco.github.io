@@ -1,0 +1,74 @@
+.typography {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.typo-lines-1 {
+  -webkit-line-clamp: 1;
+}
+
+.typo-lines-2 {
+  -webkit-line-clamp: 2;
+}
+
+.typo-lines-3 {
+  -webkit-line-clamp: 3;
+}
+
+// Size
+
+.typo-xl {
+  font-size: 3.75rem;
+
+  @media @mobile {
+    font-size: 1.7rem;
+  }
+}
+
+.typo-lg {
+  font-size: 3rem;
+
+  @media @mobile {
+    font-size: 1.4rem;
+  }
+}
+
+.typo-md {
+  font-size: 2.25rem;
+
+  @media @mobile {
+    font-size: 1.2rem;
+  }
+}
+
+.typo-sm {
+  font-size: 1.2rem;
+
+  @media @mobile {
+    font-size: 0.9rem;
+  }
+}
+
+.typo-xs {
+  font-size: 0.8rem;
+
+  @media @mobile {
+    font-size: 0.75rem;
+  }
+}
+
+// Color
+
+.typo-primary {
+  color: var(--primary);
+}
+
+.typo-white {
+  color: var(--white);
+}
+
+.typo-white-5 {
+  color: var(--white-5);
+}
