@@ -11,6 +11,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ButtonComponent } from './button/button.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonTabComponent } from './button-tab/button-tab.component';
+import { TagComponent } from './tag/tag.component';
 
 
 
@@ -26,6 +27,7 @@ import { ButtonTabComponent } from './button-tab/button-tab.component';
     BreadcrumbComponent,
     ButtonComponent,
     ButtonTabComponent,
+    TagComponent,
   ],
   exports: [
     CursorComponent,
@@ -34,6 +36,7 @@ import { ButtonTabComponent } from './button-tab/button-tab.component';
     BreadcrumbComponent,
     ButtonComponent,
     ButtonTabComponent,
+    TagComponent,
   ],
   providers: [
     SvgIconRegistryService,
