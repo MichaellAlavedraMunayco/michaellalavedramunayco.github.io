@@ -11,7 +11,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRe
         width: 100%;
         min-height: 4px;
         min-width: 30px;
-        background-color: var(--white-50);
+        background-color: var(--white-5);
         opacity: 1;
         transition: opacity 0.3s;
     }

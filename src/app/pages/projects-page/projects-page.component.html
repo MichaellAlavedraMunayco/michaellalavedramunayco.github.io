@@ -1,59 +1,43 @@
 <div class="project--page">
 
   <div class="project--header">
-
-    <ui-button-tab icon="facebook" name="Facebook"></ui-button-tab>
-    <ui-button-tab icon="facebook" name="Facebook"></ui-button-tab>
-    <ui-button-tab icon="facebook" name="Facebook"></ui-button-tab>
-    <ui-button-tab icon="facebook" name="Facebook"></ui-button-tab>
-    <ui-button-tab icon="facebook" name="Facebook"></ui-button-tab>
-
+    <ng-container *ngFor="let _project of data.person.projects">
+      <ui-tab [icon]="_project.icon" [name]="_project.shortname" (click)="project = _project"></ui-tab>
+    </ng-container>
   </div>
 
+  <ng-container *ngIf="project">
 
-  <div class="project--body">
+    <div class="project--body">
 
-    <video controls="true" loop="true" poster="assets/videos/video-poster.sample.jpg">
-      <source src="assets/videos/sample.mp4" type="video/mp4">
-      <p>Your browser doesn't support HTML5 video.</p>
-    </video>
+      <video controls="true" loop="true" [poster]="project.poster">
+        <source [src]="project.video" type="video/mp4">
+        <p typography size="xs" color="white">Your browser doesn't support HTML5 video.</p>
+      </video>
 
-  </div>
+    </div>
 
 
-  <div class="project--footer">
+    <div class="project--footer">
 
-    <div class="project--footer-content">
+      <div class="project--footer-content">
 
-      <div class="project--footer-detail">
+        <div class="project--footer-detail">
 
-        <p typography type="display" size="extrasmall" color="white">
-          Accelerating Strategy Execution in Uncertainty
-        </p>
-
-        <p typography type="text" size="extralarge" color="white-50">
-          Eficientis supports all stages of strategy execution, such as the Kaplan-Norton strategy Execution Premium
-          Process
-          (XPP). The platform supports all of your core strategy execution activities including.
-        </p>
-
-      </div>
-
-      <div class="project--footer-tags">
-        <ui-tag>
-          <svg-icon name="facebook" [svgStyle]="{ 'height.px': 12 }"></svg-icon>
-          <p typography type="text" size="extralarge" color="white">
-            angular
+          <p typography size="sm" color="white">
+            {{ project.name }}
           </p>
-        </ui-tag>
+
+          <p typography size="xs" color="white-5" lines="2">
+            {{ project.detail}}
+          </p>
+
+        </div>
+
       </div>
 
     </div>
 
-    <div class="project--footer-stats">
-
-    </div>
-
-  </div>
+  </ng-container>
 
 </div>

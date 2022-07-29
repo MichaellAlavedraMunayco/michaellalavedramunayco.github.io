@@ -1,32 +1,32 @@
+<div class="links--container">
+
+  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Facebook'])">
+    <svg-icon name="facebook"></svg-icon>
+  </ui-button>
+
+  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Linkedin'])">
+    <svg-icon name="linkedin"></svg-icon>
+  </ui-button>
+
+  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Github'])">
+    <svg-icon name="github"></svg-icon>
+  </ui-button>
+
+  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Instagram'])">
+    <svg-icon name="instagram"></svg-icon>
+  </ui-button>
+
+  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Twitter'])">
+    <svg-icon name="twitter"></svg-icon>
+  </ui-button>
+
+  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Whatsapp'])">
+    <svg-icon name="whatsapp"></svg-icon>
+  </ui-button>
+
+</div>
+
 <div class="personal--layout">
-
-  <div class="links--container">
-
-    <ui-button type="primary" size="small" mode="icon-link" (click)="navigator.goToURL(me.links['Facebook'].url)">
-      <svg-icon name="facebook"></svg-icon>
-    </ui-button>
-
-    <ui-button type="primary" size="small" mode="icon-link" (click)="navigator.goToURL(me.links['Linkedin'].url)">
-      <svg-icon name="linkedin"></svg-icon>
-    </ui-button>
-
-    <ui-button type="primary" size="small" mode="icon-link" (click)="navigator.goToURL(me.links['Github'].url)">
-      <svg-icon name="github"></svg-icon>
-    </ui-button>
-
-    <ui-button type="primary" size="small" mode="icon-link" (click)="navigator.goToURL(me.links['Instagram'].url)">
-      <svg-icon name="instagram"></svg-icon>
-    </ui-button>
-
-    <ui-button type="primary" size="small" mode="icon-link" (click)="navigator.goToURL(me.links['Twitter'].url)">
-      <svg-icon name="twitter"></svg-icon>
-    </ui-button>
-
-    <ui-button type="primary" size="small" mode="icon-link" (click)="navigator.goToURL(me.links['Whatsapp'].url)">
-      <svg-icon name="whatsapp"></svg-icon>
-    </ui-button>
-
-  </div>
 
   <div class="about-me--container">
 
@@ -34,21 +34,23 @@
 
       <div class="about-me--header">
 
-        <p typography type="display" size="medium" color="white-70">Hello, I am</p>
-
-        <p typography type="display" size="extralarge" color="primary">
-          {{ me.firstname }} {{ me.lastname }}
+        <p typography size="md" color="white-5">
+          {{ data.person.welcome }}
         </p>
 
-        <p typography type="display" size="large" color="white">
-          {{ me.headline }}
+        <p typography size="xl" color="primary">
+          {{ data.person.firstname }} {{ data.person.lastname }}
+        </p>
+
+        <p typography size="lg" color="white">
+          {{ data.person.headline }}
         </p>
 
       </div>
 
       <div class="about-me--body">
-        <p typography type="display" size="small" color="white-50">
-          {{ me.bio }}
+        <p typography size="sm" color="white-5">
+          {{ data.person.bio }}
         </p>
       </div>
 
@@ -56,12 +58,12 @@
 
     <div class="navigation-buttons">
 
-      <ui-button type="primary" size="small" (click)="navigator.goToPage('projects')">
-        <p typography type="display" size="extrasmall" color="white">Projects</p>
+      <ui-button type="button" (click)="navigator.goToPage('projects')">
+        <p typography size="sm" color="white">Projects</p>
       </ui-button>
 
-      <ui-button type="primary" size="small" (click)="navigator.goToPage('certifications')">
-        <p typography type="display" size="extrasmall" color="white">Certifications</p>
+      <ui-button type="button" (click)="navigator.goToPage('certifications')">
+        <p typography size="sm" color="white">Certifications</p>
       </ui-button>
 
     </div>
@@ -76,24 +78,8 @@
     <ui-progress-bar [percent]="avatarPercent"> </ui-progress-bar>
   </div>
 
-  <ngx-profile-avatar [url]="me.avatar3D" [tracker]="avatarTracker" [enableZoom]="false"
+  <ngx-profile-avatar [url]="data.person.avatar" [tracker]="avatarTracker" [enableZoom]="false"
     (loading)="onLoadingAvatar($event)">
   </ngx-profile-avatar>
-
-  <div class="avatar--control">
-
-    <ng-container *ngIf="avatarTracker === 'face'">
-      <ui-button type="primary" size="small" mode="icon-only" (click)="avatarTracker = 'cursor'">
-        <svg-icon name="pointer"></svg-icon>
-      </ui-button>
-    </ng-container>
-
-    <ng-container *ngIf="avatarTracker === 'cursor'">
-      <ui-button type="primary" size="small" mode="icon-only" (click)="avatarTracker = 'face'">
-        <svg-icon name="record"></svg-icon>
-      </ui-button>
-    </ng-container>
-
-  </div>
 
 </div>

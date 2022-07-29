@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { UiModule } from './ui/ui.module';
 // Services
 import { NavigationService } from './core/services/navigation.service';
+import { PersonalService } from './core/services/personal.service';
 // Components
 import { AppComponent } from './app.component';
 // Child Components
@@ -41,6 +42,7 @@ import { CertificationsPageComponent } from './pages/certifications-page/certifi
   ],
   providers: [
     NavigationService,
+    PersonalService,
   ],
   bootstrap: [AppComponent]
 })

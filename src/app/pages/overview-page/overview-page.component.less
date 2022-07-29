@@ -1,5 +1,29 @@
 @import url("./../../../assets/styles/breakpoint.less");
 
+// social links
+
+div.links--container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: fit-content;
+  height: 100%;
+
+  @media @mobile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 5%;
+    padding-right: 5%;
+    height: fit-content;
+    z-index: 3;
+  }
+}
+
+// personal content
+
 div.personal--layout {
   position: absolute;
   inset: 0;
@@ -9,6 +33,7 @@ div.personal--layout {
   justify-content: flex-start;
   align-items: center;
   gap: 72px;
+  margin-left: 8%;
 
   @media @mobile {
     max-width: unset;
@@ -18,21 +43,7 @@ div.personal--layout {
     padding: 0 5% 10% 5%;
     height: 40%;
     z-index: 2;
-  }
-}
-
-// social links
-
-div.links--container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  @media @mobile {
-    position: fixed;
-    inset: 5%;
-    left: unset;
-    bottom: unset;
+    margin: unset;
   }
 }
 
@@ -63,15 +74,10 @@ div.about-me--content {
 div.about-me--header {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
-
-  @media @mobile {
-    font-size: 8px;
-  }
 }
 
 div.about-me--body {
-  max-width: 90%;
+  max-width: 80%;
 
   @media @mobile {
     max-width: unset;
@@ -123,16 +129,4 @@ div.progress--container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-div.avatar--control {
-  position: absolute;
-  z-index: 2;
-  inset: 5%;
-  left: unset;
-  bottom: unset;
-
-  @media @mobile {
-    display: none;
-  }
 }

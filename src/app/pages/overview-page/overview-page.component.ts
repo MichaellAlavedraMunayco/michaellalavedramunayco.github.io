@@ -1,8 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
+// external
 import { Tracker } from '@michaelldev/ngx-profile-avatar/lib';
-import { data } from 'src/app/core/data/data';
-import { Me } from 'src/app/core/interfaces/portfolio';
+// services
 import { NavigationComponent, NavigationService } from 'src/app/core/services/navigation.service';
+import { PersonalService } from 'src/app/core/services/personal.service';
 
 @Component({
   selector: 'app-overview-page',
@@ -14,7 +15,6 @@ export class OverviewPageComponent extends NavigationComponent implements OnInit
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
 
-  me: Me = data;
   avatarPercent: number = 0;
   avatarTracker: Tracker = 'cursor';
 
@@ -22,6 +22,7 @@ export class OverviewPageComponent extends NavigationComponent implements OnInit
   constructor(
     elementRef: ElementRef<HTMLElement>,
     public navigator: NavigationService,
+    public data: PersonalService,
   ) {
     super(elementRef);
   }

@@ -1,30 +1,31 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
   selector: 'ui-tag',
-  template: `<ng-content></ng-content>`,
+  template: `
+    <p typography type="text" size="extralarge" color="white">
+      {{ name }}
+    </p>`,
   styles: [`
     :host {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 12px;
         color: var(--white);
         fill: var(--white);
-        border-radius: 8px;
+        border-radius: 4px;
         width: fit-content;
         height: fit-content;
-        padding: 8px 20px 8px 12px;
-        background-color: var(--white-10);
+        padding: 4px 12px;
+        border: 1px solid var(--white);
         transition: background-color 0.3s;
-    }
-    :host:focus,
-    :host:hover {
-        background-color: var(--white-30);
+        cursor: default;
     }`],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagComponent implements OnInit {
+
+  @Input() name: string;
 
   constructor() { }
 

@@ -9,8 +9,7 @@ import { CursorComponent } from './cursor/cursor.component';
 import { TypographyDirective } from './typography/typography.directive';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ButtonComponent } from './button/button.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { ButtonTabComponent } from './button-tab/button-tab.component';
+import { TabComponent } from './tab/tab.component';
 import { TagComponent } from './tag/tag.component';
 
 
@@ -24,18 +23,16 @@ import { TagComponent } from './tag/tag.component';
     CursorComponent,
     TypographyDirective,
     ProgressBarComponent,
-    BreadcrumbComponent,
     ButtonComponent,
-    ButtonTabComponent,
+    TabComponent,
     TagComponent,
   ],
   exports: [
     CursorComponent,
     TypographyDirective,
     ProgressBarComponent,
-    BreadcrumbComponent,
     ButtonComponent,
-    ButtonTabComponent,
+    TabComponent,
     TagComponent,
   ],
   providers: [

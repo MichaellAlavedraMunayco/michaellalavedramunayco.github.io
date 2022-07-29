@@ -2,6 +2,8 @@
 @import url("assets/styles/reset.less");
 @import url("assets/styles/normalize.less");
 @import url("assets/styles/breakpoint.less");
+@import url("assets/styles/scrollbar.less");
+@import url("assets/styles/typography.less");
 
 :root {
   --dark: #131622;
@@ -11,14 +13,26 @@
   --secondary-dark: #1e3566;
   --secondary: #075fe4;
   --secondary-light: #255cd1;
-  --white: rgb(255, 255, 255);
-  --white-70: rgba(255, 255, 255, 0.7);
-  --white-50: rgba(255, 255, 255, 0.5);
-  --white-40: rgba(255, 255, 255, 0.4);
-  --white-30: rgba(255, 255, 255, 0.3);
-  --white-10: rgba(255, 255, 255, 0.1);
-  --black: rgb(0, 0, 0);
-  --black-50: rgba(0, 0, 0, 0.5);
+  --black: rgba(0, 0, 0, 1);
+  --black-9: rgba(0, 0, 0, 0.9);
+  --black-8: rgba(0, 0, 0, 0.8);
+  --black-7: rgba(0, 0, 0, 0.7);
+  --black-6: rgba(0, 0, 0, 0.6);
+  --black-5: rgba(0, 0, 0, 0.5);
+  --black-4: rgba(0, 0, 0, 0.4);
+  --black-3: rgba(0, 0, 0, 0.3);
+  --black-2: rgba(0, 0, 0, 0.2);
+  --black-1: rgba(0, 0, 0, 0.1);
+  --white-1: rgba(255, 255, 255, 0.1);
+  --white-2: rgba(255, 255, 255, 0.2);
+  --white-3: rgba(255, 255, 255, 0.3);
+  --white-4: rgba(255, 255, 255, 0.4);
+  --white-5: rgba(255, 255, 255, 0.5);
+  --white-6: rgba(255, 255, 255, 0.6);
+  --white-7: rgba(255, 255, 255, 0.7);
+  --white-8: rgba(255, 255, 255, 0.8);
+  --white-9: rgba(255, 255, 255, 0.9);
+  --white: rgba(255, 255, 255, 1);
 }
 
 *,
@@ -26,15 +40,6 @@ html,
 body {
   font-family: "Familjen Grotesk", sans-serif;
   font-size: 16px;
-  // cursor: none;
-
-  @media @mobile {
-    font-size: 8px;
-  }
-
-  @media @tablet {
-    font-size: 10px;
-  }
 }
 
 body {
@@ -71,30 +76,6 @@ body {
   }
 }
 
-// Scroll
-
-*::-webkit-scrollbar {
-  width: 4px;
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-track-piece {
-  background: var(--white-50);
-  border-radius: 2px;
-  margin: 24vh;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: var(--white);
-  border-radius: 2px;
-}
-
-*::-webkit-scrollbar-corner,
-*::-webkit-resizer,
-*::-webkit-scrollbar-button {
-  display: none;
+svg-icon {
+  display: flex;
 }
