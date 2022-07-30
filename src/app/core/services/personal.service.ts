@@ -24,7 +24,7 @@ export class PersonalService {
         [LinkProvider.Twitter]: 'https://twitter.com/michaelldev',
         [LinkProvider.Whatsapp]: 'https://wa.me/59177824436?text=Hola%20Michaell!%20Vengo%20de%20tu%20sitio%20web',
       },
-      projects: [
+      projects: Array.from<Project>({ length: 10 }).fill(
         {
           icon: 'facebook',
           shortname: 'Eficientis',
@@ -32,32 +32,7 @@ export class PersonalService {
           detail: 'Eficientis supports all stages of strategy execution, such as the Kaplan-Norton strategy Execution Premium Process (XPP).The platform supports all of your core strategy execution activities including.',
           video: 'assets/videos/sample.mp4',
           poster: 'assets/videos/sample.poster.png',
-        },
-        {
-          icon: 'facebook',
-          shortname: 'Eficientis',
-          name: 'Eficientis - Accelerating Strategy Execution',
-          detail: 'Eficientis supports all stages of strategy execution, such as the Kaplan-Norton strategy Execution Premium Process (XPP).The platform supports all of your core strategy execution activities including.',
-          video: 'assets/videos/sample.mp4',
-          poster: 'assets/videos/sample.poster.png',
-        },
-        {
-          icon: 'facebook',
-          shortname: 'Eficientis',
-          name: 'Eficientis - Accelerating Strategy Execution',
-          detail: 'Eficientis supports all stages of strategy execution, such as the Kaplan-Norton strategy Execution Premium Process (XPP).The platform supports all of your core strategy execution activities including.',
-          video: 'assets/videos/sample.mp4',
-          poster: 'assets/videos/sample.poster.png',
-        },
-        {
-          icon: 'facebook',
-          shortname: 'Eficientis',
-          name: 'Eficientis - Accelerating Strategy Execution',
-          detail: 'Eficientis supports all stages of strategy execution, such as the Kaplan-Norton strategy Execution Premium Process (XPP).The platform supports all of your core strategy execution activities including.',
-          video: 'assets/videos/sample.mp4',
-          poster: 'assets/videos/sample.poster.png',
-        },
-      ]
+        }),
     }
 
   }

@@ -1,0 +1,61 @@
+:host {
+  display: flex;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+div.arrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+div.arrow-container.show {
+  opacity: 1;
+}
+
+div.arrow-container:first-child {
+  left: 0;
+}
+
+div.arrow-container:last-child {
+  right: 0;
+}
+
+div.arrow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--white-1);
+  fill: var(--white);
+}
+
+div.arrow-button:focus,
+div.arrow-button:hover {
+  background-color: var(--white-5);
+}
+
+div.tab-container {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+div.tab-container::-webkit-scrollbar {
+  display: none;
+}

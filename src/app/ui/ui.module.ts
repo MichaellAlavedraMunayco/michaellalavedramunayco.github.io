@@ -10,6 +10,7 @@ import { TypographyDirective } from './typography/typography.directive';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ButtonComponent } from './button/button.component';
 import { TabComponent } from './tab/tab.component';
+import { TabSetComponent } from './tab-set/tab-set.component';
 import { TagComponent } from './tag/tag.component';
 
 
@@ -25,6 +26,7 @@ import { TagComponent } from './tag/tag.component';
     ProgressBarComponent,
     ButtonComponent,
     TabComponent,
+    TabSetComponent,
     TagComponent,
   ],
   exports: [
@@ -33,6 +35,7 @@ import { TagComponent } from './tag/tag.component';
     ProgressBarComponent,
     ButtonComponent,
     TabComponent,
+    TabSetComponent,
     TagComponent,
   ],
   providers: [
