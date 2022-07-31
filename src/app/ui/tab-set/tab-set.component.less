@@ -1,3 +1,5 @@
+@import url("./../../../assets/styles/breakpoint.less");
+
 :host {
   display: flex;
   overflow: hidden;
@@ -9,6 +11,7 @@ div.arrow-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 4px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -32,16 +35,29 @@ div.arrow-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
+  width: 2vw;
+  height: 2vw;
   border-radius: 50%;
-  background-color: var(--white-1);
+  background-color: var(--black-5);
   fill: var(--white);
+
+  @media @mobile {
+    width: 12vw;
+    height: 12vw;
+  }
+}
+
+.arrow-icon {
+  height: 1vw;
+
+  @media @mobile {
+    height: 5vw;
+  }
 }
 
 div.arrow-button:focus,
 div.arrow-button:hover {
-  background-color: var(--white-5);
+  background-color: var(--black);
 }
 
 div.tab-container {

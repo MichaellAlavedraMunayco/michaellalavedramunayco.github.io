@@ -1,17 +1,23 @@
 <div class="project--page">
 
-  <ui-tab-set>
-    <ng-container *ngFor="let _project of data.person.projects">
-      <ui-tab [icon]="_project.icon" [name]="_project.shortname" (click)="project = _project"></ui-tab>
-    </ng-container>
-  </ui-tab-set>
+  <div class="project--header">
 
-  <ng-container *ngIf="project">
+    <ui-tab-set>
+      <ng-container *ngFor="let project of data.person.projects">
+        <ui-tab [icon]="project.icon" [name]="project.shortname"
+          [active]="project.shortname === projectSelected.shortname" (click)="onSelectProject(project)"></ui-tab>
+      </ng-container>
+    </ui-tab-set>
+
+  </div>
+
+  <ng-container *ngIf="projectSelected">
 
     <div class="project--body">
 
-      <video controls="true" loop="true" [poster]="project.poster">
-        <source [src]="project.video" type="video/mp4">
+      <video #videoPlayerRef controls="true" controlslist="nodownload, nofullscreen" loop="true"
+        [poster]="projectSelected.poster">
+        <source [src]="projectSelected.video" type="video/mp4">
         <p typography size="xs" color="white">Your browser doesn't support HTML5 video.</p>
       </video>
 
@@ -25,11 +31,11 @@
         <div class="project--footer-detail">
 
           <p typography size="sm" color="white">
-            {{ project.name }}
+            {{ projectSelected.name }}
           </p>
 
-          <p typography size="xs" color="white-5" lines="2">
-            {{ project.detail}}
+          <p typography size="xs" color="white-7" lines="3">
+            {{ projectSelected.detail}}
           </p>
 
         </div>

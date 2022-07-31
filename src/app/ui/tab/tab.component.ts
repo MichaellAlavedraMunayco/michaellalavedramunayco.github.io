@@ -1,26 +1,32 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
-
-type TabStatus = 'active' | 'default';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'ui-tab',
   template: `
     <div class="icon--container">
-      <svg-icon [name]="icon"></svg-icon>
+      <svg-icon [name]="icon" svgClass="tab-icon"></svg-icon>
     </div>
-    <p typography size="xs" color="white-5"> {{ name }} </p>`,
+    <p typography size="xs" color="white" lines="1"> {{ name }} </p>`,
   styleUrls: ['./tab.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TabComponent implements OnInit, OnChanges {
 
   @Input() icon: string = 'facebook';
   @Input() name: string;
-  @Input() status: TabStatus = 'default';
+  @Input() active: boolean = false;
 
-  constructor() { }
+  constructor(private hostRef: ElementRef<HTMLElement>) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setActive();
+  }
 
-  ngOnChanges() { }
+  ngOnChanges() {
+    this.setActive();
+  }
+
+  setActive() {
+    this.hostRef.nativeElement.className = this.active ? 'active' : '';
+  }
 }

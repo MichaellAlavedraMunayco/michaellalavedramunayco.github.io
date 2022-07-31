@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 // services
 import { NavigationComponent, NavigationService } from 'src/app/core/services/navigation.service';
 import { PersonalService, Project } from 'src/app/core/services/personal.service';
@@ -8,12 +8,15 @@ import { PersonalService, Project } from 'src/app/core/services/personal.service
   templateUrl: './projects-page.component.html',
   styleUrls: ['./projects-page.component.less']
 })
-export class ProjectsPageComponent extends NavigationComponent implements OnInit {
+export class ProjectsPageComponent extends NavigationComponent implements OnInit, AfterViewInit {
 
   @Output() previousPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
 
-  project: Project;
+  @ViewChild('videoPlayerRef') videoPlayerRef: ElementRef<HTMLVideoElement>;
+
+  projectSelected: Project;
+  controlsShowing: boolean = false;
 
   constructor(
     elementRef: ElementRef<HTMLElement>,
@@ -25,7 +28,13 @@ export class ProjectsPageComponent extends NavigationComponent implements OnInit
 
 
   ngOnInit(): void {
-    this.project = this.data.person.projects[0];
+    this.projectSelected = this.data.person.projects[0];
+  }
+
+  ngAfterViewInit(): void { }
+
+  onSelectProject(project: Project) {
+    this.projectSelected = project;
   }
 
 }

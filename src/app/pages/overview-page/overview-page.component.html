@@ -1,27 +1,21 @@
 <div class="links--container">
 
-  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Facebook'])">
-    <svg-icon name="facebook"></svg-icon>
+  <ui-button type="link" mode="icon-only" icon="facebook" (click)="navigator.goToURL(data.person.links['Facebook'])">
   </ui-button>
 
-  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Linkedin'])">
-    <svg-icon name="linkedin"></svg-icon>
+  <ui-button type="link" mode="icon-only" icon="linkedin" (click)="navigator.goToURL(data.person.links['Linkedin'])">
   </ui-button>
 
-  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Github'])">
-    <svg-icon name="github"></svg-icon>
+  <ui-button type="link" mode="icon-only" icon="github" (click)="navigator.goToURL(data.person.links['Github'])">
   </ui-button>
 
-  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Instagram'])">
-    <svg-icon name="instagram"></svg-icon>
+  <ui-button type="link" mode="icon-only" icon="instagram" (click)="navigator.goToURL(data.person.links['Instagram'])">
   </ui-button>
 
-  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Twitter'])">
-    <svg-icon name="twitter"></svg-icon>
+  <ui-button type="link" mode="icon-only" icon="twitter" (click)="navigator.goToURL(data.person.links['Twitter'])">
   </ui-button>
 
-  <ui-button type="link" mode="icon-only" (click)="navigator.goToURL(data.person.links['Whatsapp'])">
-    <svg-icon name="whatsapp"></svg-icon>
+  <ui-button type="link" mode="icon-only" icon="whatsapp" (click)="navigator.goToURL(data.person.links['Whatsapp'])">
   </ui-button>
 
 </div>
@@ -58,12 +52,10 @@
 
     <div class="navigation-buttons">
 
-      <ui-button type="button" (click)="navigator.goToPage('projects')">
-        <p typography size="sm" color="white">Projects</p>
+      <ui-button type="button" label="Projects" (click)="navigator.goToPage('projects')">
       </ui-button>
 
-      <ui-button type="button" (click)="navigator.goToPage('certifications')">
-        <p typography size="sm" color="white">Certifications</p>
+      <ui-button type="button" label="Certifications" (click)="navigator.goToPage('certifications')">
       </ui-button>
 
     </div>

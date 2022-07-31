@@ -15,16 +15,26 @@ div.project--page {
   gap: 8px;
 
   @media @mobile {
-    max-width: 100vw;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-width: unset;
+  }
+}
+
+div.project--header {
+  @media @mobile {
+    padding: 20px 0px 20px 20px;
+    position: absolute;
+    inset: 0;
+    bottom: unset;
+    z-index: 1;
+    background-color: var(--black-7);
   }
 }
 
 div.project--body {
   flex-grow: 1;
-
-  @media @mobile {
-    padding: 0 20px;
-  }
 }
 
 video {
@@ -39,7 +49,13 @@ div.project--footer {
   gap: 32px;
 
   @media @mobile {
-    padding: 0 20px;
+    padding-left: 20px;
+    position: absolute;
+    inset: 0;
+    top: unset;
+    bottom: 72px;
+    z-index: 1;
+    transition: bottom 1.5s;
   }
 }
 
@@ -58,6 +74,11 @@ div.project--footer-detail {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 80%;
+
+  // @media @mobile {
+  //   width: 100%;
+  // }
 }
 
 div.project--footer-stats {
