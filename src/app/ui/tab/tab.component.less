@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   background-color: var(--white-1);
-  width: 7.5vw;
-  height: 7vw;
+  width: 7vw;
+  height: 7.5vw;
   border-radius: 4px;
   padding: 8px 4px;
   cursor: default;
@@ -15,8 +15,9 @@
   transition: background-color 0.3s;
 
   @media @mobile {
-    width: 32vw;
-    height: 32vw;
+    background-color: var(--black-6);
+    width: 28vw;
+    height: 28vw;
   }
 }
 
@@ -25,7 +26,7 @@
   height: 3.5vw;
 
   @media @mobile {
-    height: 16vw;
+    height: 14vw;
   }
 }
 
@@ -48,4 +49,8 @@ p {
 :host:focus,
 :host:hover {
   background-color: var(--white-3);
+
+  @media @mobile {
+    background-color: var(--black-9);
+  }
 }
