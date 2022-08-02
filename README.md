@@ -4,9 +4,11 @@
 
 * Drawer para enlaces a redes sociales en version movil.
 * Tooltip para enlaces a redes sociales en version desktop.
-* Implementar botones primarios.
+* Implementar botones primarios como medium.
 * Boton para likes en videos sin backend.
 * Video en fullscreen en version Desktop.
+* Cambiar a un logo personalizado.
+* Animar transicion de colores del svg background pattern.
 
 ## Ideas
 
